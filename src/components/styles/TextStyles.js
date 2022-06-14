@@ -2,22 +2,31 @@ import styled from "styled-components";
 
 export const H1 = styled.h1`
   font-weight: bold;
-  font-size: 65px;
+  font-size: 60px;
 
-  @media (max-width: 450px) {
-    font-size: 34px;
+  @media (max-width: 914px) {
+    font-size: 50px;
   }
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+
 `;
 export const H2 = styled.h2`
-  font-weight: bold;
-  font-size: 40px;
+  font-weight: 600;
+  font-size: 45px;
 
-  @media (max-width: 450px) {
-    font-size: 28px;
+  @media (max-width: 914px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 35px;
   }
 `;
 export const H3 = styled.h3`
-  font-weight: bold;
+  font-weight: 500;
   font-size: 30px;
 
   @media (max-width: 450px) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/layout";
 import HeroSection from "../components/sections/HeroSection";
+import MedicalSection from "../components/sections/MedicalSection";
 
 function Home() {
   // const [home, setHome] = useState([]);
@@ -37,6 +38,7 @@ function Home() {
   return (
     <Layout>
       <HeroSection />
+      <MedicalSection />
     </Layout>
   );
 }

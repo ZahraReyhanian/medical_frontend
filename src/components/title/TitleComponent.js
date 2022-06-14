@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { H2, MediumText } from "../styles/TestStyles";
+import { H2, MediumText } from "../styles/TextStyles";
 
-const TitleComponent = ({ title, subtitle }) => {
+const TitleComponent = ({ title, subtitle, align }) => {
   return (
-    <TitleWrapper>
+    <TitleWrapper align={align}>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
     </TitleWrapper>
@@ -14,7 +14,7 @@ const TitleComponent = ({ title, subtitle }) => {
 export default TitleComponent;
 
 const TitleWrapper = styled.div`
-  text-align: center;
+  text-align: ${props => props.align};
 `;
 
 const Title = styled(H2)``;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { H3 } from "../styles/TestStyles";
+import { H3 } from "../styles/TextStyles";
 
 const ServiceCard = (props) => {
   const service = props.data;

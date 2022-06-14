@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Caption2 } from "../styles/TestStyles";
+import { Caption2 } from "../styles/TextStyles";
 
 export default function PurchaseButton({ title, link }) {
   return (

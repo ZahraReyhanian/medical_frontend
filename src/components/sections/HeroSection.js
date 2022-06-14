@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { H1, MediumText } from "../styles/TestStyles";
+import { H1, MediumText } from "../styles/TextStyles";
 import { themes } from "../styles/ColorStyles";
 import PurchaseButton from "../buttons/PurchaseButton";
 
@@ -74,7 +74,7 @@ const TextWrapper = styled(Col)`
 `;
 const Title = styled(H1)`
   color: ${themes.dark.text1};
-  line-height: 80px;
+  line-height: 90px;
   background: linear-gradient(to right, rgb(134, 239, 172), rgb(59, 130, 246), rgb(147, 51, 234));
   background-clip: text;
   -webkit-background-clip: text;
@@ -88,18 +88,17 @@ const Title = styled(H1)`
     color: transparent;
   }
 
-  @media (max-width: 914px) and (min-width: 768px) {
-    font-size: 30px;
+  @media (max-width: 914px) {
     font-weight: 700;
-    line-height: 55px;
+    line-height: 75px;
+  }
+  
+  @media (max-width: 768px) {
+    line-height: 65px;
   }
 `;
 
-const Description = styled(MediumText)`
-  @media (max-width: 914px) and (min-width: 768px) {
-    font-size: 24px;
-  }
-`;
+const Description = styled(MediumText)``;
 
 const ImgWrapper = styled(Col)`
   position: relative;

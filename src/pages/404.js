@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/layout/layout";
-import { Container, Cover } from "../components/styles/GlobalStyles";
+import { Container} from "../components/styles/GlobalStyles";
 import styled from "styled-components";
 
 function NotFoundPage() {
