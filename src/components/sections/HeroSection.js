@@ -18,15 +18,13 @@ function HeroSection() {
               <br /> روانشناسی <span>نوین</span>
             </Title>
             <Description>
-            تحت نظر پزشک عمومی، ارائه دهنده خدمات و اطلاعات پزشکی روانشناسی مورد نیاز اقشار مختلف جامعه
+              تحت نظر پزشک عمومی، ارائه دهنده خدمات و اطلاعات پزشکی روانشناسی
+              مورد نیاز اقشار مختلف جامعه
             </Description>
             {/* <PurchaseButton title="Start Now!" /> */}
           </TextWrapper>
           <ImgWrapper md={7} sm={12}>
-            <img
-              src="/images/home/home.png"
-              alt="home"
-            />
+            <img src="/images/home/home.png" alt="home" />
           </ImgWrapper>
         </ContentWrapper>
       </Wrapper>
@@ -47,7 +45,7 @@ const Wrapper = styled.div`
 const ContentWrapper = styled(Row)`
   max-width: 1234px;
   margin: 0 auto;
-  padding: 175px 30px;
+  padding: 55px 30px;
 
   @media (max-width: 450px) {
     padding: 150px 20px 250px;
@@ -75,7 +73,12 @@ const TextWrapper = styled(Col)`
 const Title = styled(H1)`
   color: ${themes.dark.text1};
   line-height: 90px;
-  background: linear-gradient(to right, rgb(134, 239, 172), rgb(59, 130, 246), rgb(147, 51, 234));
+  background: linear-gradient(
+    to right,
+    rgb(134, 239, 172),
+    rgb(59, 130, 246),
+    rgb(147, 51, 234)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -92,7 +95,7 @@ const Title = styled(H1)`
     font-weight: 700;
     line-height: 75px;
   }
-  
+
   @media (max-width: 768px) {
     line-height: 65px;
   }

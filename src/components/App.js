@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 import Home from "../pages/Home";
+import AuthPage from "../pages/auth/AuthPage";
 import NotFound from "../pages/404";
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
   );
 };
 
-const isLogin = () => true;//!!localStorage.getItem("x-auth-token");
+const isLogin = () => true; //!!localStorage.getItem("x-auth-token");
 const isAdmin = () => !!localStorage.getItem("x-auth-token");
 
 const AuthRoute = ({ component, props }) => {

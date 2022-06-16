@@ -16,7 +16,7 @@ export default function MenuButton(props) {
 }
 
 const MenuItem = styled.div`
-  color: rgba(47, 143, 157, 1);
+  color: rgba(47, 143, 157, 1); /*#2f8f9d*/
   display: grid;
   grid-template-columns: 24px auto;
   gap: ${(props) => (props.title ? "10px" : "0px")};

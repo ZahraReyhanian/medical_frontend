@@ -40,4 +40,9 @@ export const tooltipData = [
     icon: "/images/icons/profile.svg",
     link: "/profile",
   },
+  {
+    title: "خروج",
+    icon: "/images/icons/sign-out.svg",
+    link: "/signout",
+  },
 ];
