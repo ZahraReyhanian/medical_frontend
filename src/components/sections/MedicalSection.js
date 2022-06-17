@@ -90,14 +90,19 @@ const MedicalImagesWrapper = styled(Row)`
 `;
 
 const MedicalImagesLeft = styled(Col)`
-  padding: 0 1rem;
+  padding: 0;
   text-align: center;
 `;
 
 const MedicalImagesRight = styled(Col)`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 1rem;
+  @media (max-width: 786px) {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 2rem;
+  }
 `;
 
 const ImageContainerLeft = styled.img`
@@ -111,4 +116,7 @@ const ImageContainerRight = styled.img`
   height: 13rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
+  @media (max-width: 786px) {
+    padding: 1rem;
+  }
 `;

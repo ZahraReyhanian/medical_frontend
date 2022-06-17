@@ -107,8 +107,11 @@ export const Container = styled.div`
 `;
 
 export const SectionContainer = styled.div`
-  padding: 10rem 0;
+  padding-top: 15rem;
   margin: 0;
+  @media (max-width: 576px) {
+    padding-top: 10rem;
+  }
 `;
 
 export const Row = styled.div`

@@ -124,7 +124,4 @@ const ImgWrapper = styled(Col)`
       margin-top: 88px;
     }
   }
-  @media (max-width: 450px) {
-    transform: scale(0.7);
-  }
 `;
