@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../styles/GlobalStyles";
+import { Container, SectionContainer } from "../styles/GlobalStyles";
 import TitleComponent from "../title/TitleComponent";
 import { BodyMain } from "../styles/TextStyles";
 import { Col, Row } from "react-bootstrap";
@@ -8,11 +8,13 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const MedicalSection = () => {
   return (
-    <MedicalContainer>
+    <SectionContainer>
       <Container>
-        <TitleComponent title="انواع خدمات پزشکی" align={"right"} />
         <MedicalRow>
-          <MedicalRight md={6} sm={12}>
+          <MedicalRight md={5} sm={12}>
+            <TitleWrapper>
+              <TitleComponent title="انواع خدمات پزشکی" align={"right"} />
+            </TitleWrapper>
             <MedicalServices>
               <MedicalService>
                 <img height={30} src="/images/icons/angle-circle-left.svg" />
@@ -28,7 +30,7 @@ const MedicalSection = () => {
               </MedicalService>
             </MedicalServices>
           </MedicalRight>
-          <MedicalLeft md={6} sm={12}>
+          <MedicalLeft md={7} sm={12}>
             <MedicalImagesWrapper>
               <MedicalImagesLeft md={6} sm={12}>
                 <ImageContainerLeft src="/images/services/doctor.png" />
@@ -41,16 +43,11 @@ const MedicalSection = () => {
           </MedicalLeft>
         </MedicalRow>
       </Container>
-    </MedicalContainer>
+    </SectionContainer>
   );
 };
 
 export default MedicalSection;
-
-const MedicalContainer = styled.div`
-  padding: 50px 0;
-  margin: 0;
-`;
 
 const MedicalRow = styled(Row)`
   margin-top: 2.5rem;
@@ -59,6 +56,10 @@ const MedicalRow = styled(Row)`
 const MedicalRight = styled(Col)``;
 
 const MedicalLeft = styled(Col)``;
+
+const TitleWrapper = styled.div`
+  margin-bottom: 4rem;
+`;
 
 const MedicalServices = styled.div``;
 
@@ -94,18 +95,20 @@ const MedicalImagesLeft = styled(Col)`
 `;
 
 const MedicalImagesRight = styled(Col)`
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem 1rem;
 `;
 
 const ImageContainerLeft = styled.img`
-  width: 14rem;
-  height: 22rem;
+  width: 15rem;
+  height: 27rem;
   border-radius: 1rem;
 `;
 
 const ImageContainerRight = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 13rem;
+  height: 13rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
 `;

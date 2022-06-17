@@ -106,6 +106,11 @@ export const Container = styled.div`
   }
 `;
 
+export const SectionContainer = styled.div`
+  padding: 10rem 0;
+  margin: 0;
+`;
+
 export const Row = styled.div`
   display: flex;
   margin: 0 -15px -15px -15px;
@@ -124,15 +129,25 @@ export const Button = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  border-radius: 20px;
+  width: 13rem;
+  height: 3.2rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1),
+    0px 20px 40px rgba(23, 0, 102, 0.2),
+    inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.5);
+  transition: 1s 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   &:hover {
     transition: all 0.3s ease-out;
     background: #fff;
     background: ${({ primary }) => (primary ? "#0467FB" : "#4B59F7")};
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1),
+      0px 30px 60px rgba(23, 0, 102, 0.5),
+      inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
   }
 
   @media screen and (max-width: 960px) {
     width: 100%;
   }
 `;
-
