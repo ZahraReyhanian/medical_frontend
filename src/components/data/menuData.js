@@ -1,14 +1,36 @@
+const item1 = {
+  title: "پزشکی",
+  icon: "/images/icons/stethoscope.svg",
+  link: "/medical",
+};
+
+const item2 = {
+  title: "روانشناسی",
+  icon: "/images/icons/head-side-thinking.svg",
+  link: "/psychology",
+};
+
+const authItem = {
+  title: "ورود| ثبت نام",
+  icon: "/images/icons/profile.svg",
+  link: "/login",
+};
+
+const profile = {
+  title: "پروفایل",
+  icon: "/images/icons/profile.svg",
+  link: "/profile",
+};
+
+const logout = {
+  title: "خروج",
+  icon: "/images/icons/sign-out.svg",
+  link: "/logout",
+};
+
 export const menuData = [
-  {
-    title: "پزشکی",
-    icon: "/images/icons/stethoscope.svg",
-    link: "/medical",
-  },
-  {
-    title: "روانشناسی",
-    icon: "/images/icons/head-side-thinking.svg",
-    link: "/psychology",
-  },
+  item1,
+  item2,
   {
     title: "",
     icon: "/images/icons/account.svg",
@@ -16,33 +38,10 @@ export const menuData = [
   },
 ];
 
-export const menuDataHamburger = [
-  {
-    title: "پزشکی",
-    icon: "/images/icons/stethoscope.svg",
-    link: "/medical",
-  },
-  {
-    title: "روانشناسی",
-    icon: "/images/icons/head-side-thinking.svg",
-    link: "/psychology",
-  },
-  {
-    title: "پروفایل",
-    icon: "/images/icons/profile.svg",
-    link: "/profile",
-  },
-];
+export const menuDataHamburger = [item1, item2, authItem];
 
-export const tooltipData = [
-  {
-    title: "پروفایل",
-    icon: "/images/icons/profile.svg",
-    link: "/profile",
-  },
-  {
-    title: "خروج",
-    icon: "/images/icons/sign-out.svg",
-    link: "/signout",
-  },
-];
+export const tooltipData = [authItem];
+
+export const menuDataHamburgerAuthUser = [item1, item2, profile, logout];
+
+export const tooltipDataAuthUser = [profile, logout];

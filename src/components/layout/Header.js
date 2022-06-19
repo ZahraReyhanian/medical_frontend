@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
-import { menuData, menuDataHamburger } from "../data/menuData";
+import {
+  menuData,
+  menuDataHamburger,
+  menuDataHamburgerAuthUser,
+  tooltipDataAuthUser,
+} from "../data/menuData";
 import { tooltipData } from "../data/menuData";
 import MenuButton from "../buttons/MenuButton";
 import MenuTooltip from "../tooltips/MenuTooltip";
+import AuthContext from "../context/AuthContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +18,8 @@ export default function Header() {
   const ref = useRef();
   const tooltipRef = useRef();
   const hamburgerRef = useRef();
+
+  let { user, logoutUser } = useContext(AuthContext);
 
   function hamburgerHandleClick(event) {
     setIsOpenh(!isOpenh);
@@ -64,10 +72,16 @@ export default function Header() {
         </HamburgerWrapper>
       </MenuWrapper>
       <div ref={hamburgerRef}>
-        <MenuTooltip data={menuDataHamburger} isOpen={isOpenh} />
+        <MenuTooltip
+          data={user ? menuDataHamburgerAuthUser : menuDataHamburger}
+          isOpen={isOpenh}
+        />
       </div>
       <div ref={tooltipRef}>
-        <MenuTooltip data={tooltipData} isOpen={isOpen} />
+        <MenuTooltip
+          data={user ? tooltipDataAuthUser : tooltipData}
+          isOpen={isOpen}
+        />
       </div>
     </Wrapper>
   );
@@ -92,7 +106,7 @@ const Wrapper = styled.div`
 
 const LogoWrapper = styled.img`
   height: 5rem;
-`
+`;
 
 const MenuWrapper = styled.div`
   display: grid;

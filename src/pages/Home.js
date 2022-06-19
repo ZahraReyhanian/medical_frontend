@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/layout/layout";
 import HeroSection from "../components/sections/HeroSection";
 import MedicalSection from "../components/sections/MedicalSection";
 import TestSection from "../components/sections/TestSection";
@@ -37,11 +36,11 @@ function Home() {
   // if (!home.gym) return "loading data ...";
   // else console.log(home);
   return (
-    <Layout>
+    <>
       <HeroSection />
       <MedicalSection />
       <TestSection />
-    </Layout>
+    </>
   );
 }
 

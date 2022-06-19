@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
+import AuthContext from "../context/AuthContext";
 
 export default function MenuButton(props) {
   const { item } = props;
+  let { user, logoutUser } = useContext(AuthContext);
   return (
-    <Link to={item.link} onClick={props.onClick}>
-      <MenuItem title={item.title}>
-        <img src={item.icon} alt={item.title} />
-        {item.title}
-      </MenuItem>
-    </Link>
+    <>
+      {item.link == "/logout" ? (
+        <MenuItem title={item.title} onClick={logoutUser}>
+          <img src={item.icon} alt={item.title} />
+          {item.title}
+        </MenuItem>
+      ) : (
+        <Link to={item.link} onClick={props.onClick}>
+          <MenuItem title={item.title}>
+            <img src={item.icon} alt={item.title} />
+            {item.title}
+          </MenuItem>
+        </Link>
+      )}
+    </>
   );
 }
 
@@ -23,8 +34,9 @@ const MenuItem = styled.div`
   align-items: center;
   padding: 10px;
   transition: 0.5s ease-out;
+  cursor: pointer;
 
-  img{
+  img {
     height: 1rem;
   }
 
