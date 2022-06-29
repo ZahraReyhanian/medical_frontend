@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 
 const baseURL = "http://127.0.0.1:8000";
 
-const useAxios = () => {
+const useAxiosAuth = () => {
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
 
   const axiosInstance = axios.create({
@@ -29,11 +29,11 @@ const useAxios = () => {
     setAuthTokens(response.data);
     setUser(jwt_decode(response.data.access));
 
-    req.headers.Authorization = `Bearer ${response.data.access}`;
+    req.headers.Authorization = `JWT ${response.data.access}`;
     return req;
   });
 
   return axiosInstance;
 };
 
-export default useAxios;
+export default useAxiosAuth;

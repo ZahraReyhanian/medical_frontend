@@ -10,6 +10,7 @@ import Home from "../pages/Home";
 import AuthPage from "../pages/auth/AuthPage";
 import NotFound from "../pages/404";
 import Layout from "./layout/layout";
+import BaseQuiz from "../pages/quiz/BaseQuiz";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
               {/* <AuthRoute path={"/reset/:token"} component={Reset} /> */}
 
               {/* <PrivateRoute component={Logout} path="/logout" /> */}
+              <Route component={BaseQuiz} path="/test" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />
             </Switch>
