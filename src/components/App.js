@@ -4,13 +4,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoute from "./api/PrivateRoute";
 
 import Home from "../pages/Home";
 import AuthPage from "../pages/auth/AuthPage";
 import NotFound from "../pages/404";
 import Layout from "./layout/layout";
 import BaseQuiz from "../pages/quiz/BaseQuiz";
+import ProfilePanel from "../pages/profile/ProfilePanel";
+import StartQuiz from "../pages/quiz/StartQuiz";
 
 const App = () => {
   return (
@@ -22,7 +24,8 @@ const App = () => {
               <AuthRoute path={"/login"} component={AuthPage} />
               {/* <AuthRoute path={"/reset/:token"} component={Reset} /> */}
 
-              {/* <PrivateRoute component={Logout} path="/logout" /> */}
+              <PrivateRoute component={ProfilePanel} path="/profile" />
+              <Route component={StartQuiz} path="/start-test" />
               <Route component={BaseQuiz} path="/test" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />

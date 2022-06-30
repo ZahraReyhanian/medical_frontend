@@ -5,7 +5,7 @@ import Title from "./Title";
 import styled from "styled-components";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
-import { getUserPanel, updateProfileSetting } from "../../api/api_home";
+// import { getUserPanel, updateProfileSetting } from "../../api/api_home";
 
 const ProfileSetting = () => {
   const [email, setEmail] = useState();
@@ -17,48 +17,43 @@ const ProfileSetting = () => {
   const [problem, setProblem] = useState();
 
   useEffect(() => {
-    getUserPanel((isOk, data) => {
-      if (!isOk) return alert(data.message);
-      else {
-        const user = data.user;
-        const student = data.user.student[0];
-
-        setEmail(user.email);
-        setName(user.name);
-        setWeight(student.weight);
-        setHeight(student.Height);
-        setAge(student.age);
-        setGender(student.gender);
-        setProblem(student.medicalSpecifications);
-      }
-    });
+    // getUserPanel((isOk, data) => {
+    //   if (!isOk) return alert(data.message);
+    //   else {
+    //     const user = data.user;
+    //     const student = data.user.student[0];
+    //     setEmail(user.email);
+    //     setName(user.name);
+    //     setWeight(student.weight);
+    //     setHeight(student.Height);
+    //     setAge(student.age);
+    //     setGender(student.gender);
+    //     setProblem(student.medicalSpecifications);
+    //   }
+    // });
   }, []);
 
   const handleProfile = () => {
-    const user = {
-      email: email,
-      name: name,
-      weight: weight,
-      Height: height,
-      age: age,
-      gender: gender,
-      medicalSpecifications: problem,
-      sick: "false",
-    };
-
-    if (problem != "") user.sick = "true";
-
-    updateProfileSetting(user, (isOk, data) => {
-      if (!isOk) return toast.error(data);
-
-      const delayInMilliseconds = 1000; //1 second
-
-      setTimeout(function () {
-        toast.success("Successful!");
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
-      }, delayInMilliseconds);
-    });
+    // const user = {
+    //   email: email,
+    //   name: name,
+    //   weight: weight,
+    //   Height: height,
+    //   age: age,
+    //   gender: gender,
+    //   medicalSpecifications: problem,
+    //   sick: "false",
+    // };
+    // if (problem != "") user.sick = "true";
+    // updateProfileSetting(user, (isOk, data) => {
+    //   if (!isOk) return toast.error(data);
+    //   const delayInMilliseconds = 1000; //1 second
+    //   setTimeout(function () {
+    //     toast.success("Successful!");
+    //     localStorage.setItem("name", name);
+    //     localStorage.setItem("email", email);
+    //   }, delayInMilliseconds);
+    // });
   };
 
   return (

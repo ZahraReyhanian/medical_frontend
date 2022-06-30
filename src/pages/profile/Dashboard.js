@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Col, Container, Row, ProgressBar } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { H2 } from "../../components/styles/TestStyles";
+import { H2 } from "../../components/styles/TextStyles";
 import PieProgress from "./PieProgress";
 import Title from "./Title";
 
@@ -13,7 +13,7 @@ const Dashboard = ({ user, student, BMI, progress }) => {
         <Row>
           <DashboardColUserName lg={6} md={7} sm={6}>
             <UserNameTop>
-              <H2>Hi, {user.name}</H2>
+              {/* <H2>Hi, {user.name}</H2> */}
               <span>Keep your progress</span>
             </UserNameTop>
             <UserBMI>
@@ -40,7 +40,7 @@ const Dashboard = ({ user, student, BMI, progress }) => {
               <p>Problem</p>
             </InfoLeft>
             <InfoRight lg={4} md={4} sm={6}>
-              <p>: {user.name}</p>
+              {/* <p>: {user.name}</p>
               <p>: {student.gender}</p>
               <p>: {student.age == 0 ? "unset" : student.age}</p>
               <p>: {student.weight == 0 ? "unset" : student.weight + "KG"}</p>
@@ -50,7 +50,7 @@ const Dashboard = ({ user, student, BMI, progress }) => {
                 {student.sick === "false"
                   ? "nothing"
                   : student.medicalSpecifications}
-              </p>
+              </p> */}
             </InfoRight>
           </InfoWrapper>
         </InfoSection>

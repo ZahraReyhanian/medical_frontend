@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
-import { uploadUserPhoto } from "../../api/api_auth";
+// import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -31,26 +31,26 @@ const NavBar = ({ image }) => {
 
   const handleAvatarChange = (e) => {
     const addr = "http://localhost:8000//";
-    if (e.target.files && e.target.files.length > 0) {
-      setImageFile(e.target.files[0]);
+    // if (e.target.files && e.target.files.length > 0) {
+    //   setImageFile(e.target.files[0]);
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePath(e.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-      const formData = new FormData();
-      formData.append("image", e.target.files[0]);
-      uploadUserPhoto(formData, (isOK, data) => {
-        console.log(data);
-        if (!isOK) return toast.error(data);
-        const delayInMilliseconds = 1000; //1 second
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     setImagePath(e.target.result);
+    //   };
+    //   reader.readAsDataURL(e.target.files[0]);
+    //   const formData = new FormData();
+    //   formData.append("image", e.target.files[0]);
+    //   uploadUserPhoto(formData, (isOK, data) => {
+    //     console.log(data);
+    //     if (!isOK) return toast.error(data);
+    //     const delayInMilliseconds = 1000; //1 second
 
-        setTimeout(function () {
-          toast.success("Successful !");
-        }, delayInMilliseconds);
-      });
-    }
+    //     setTimeout(function () {
+    //       toast.success("Successful !");
+    //     }, delayInMilliseconds);
+    //   });
+    // }
   };
 
   if (!image) return "loading data....";
