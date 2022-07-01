@@ -7,7 +7,7 @@ const item1 = {
 const item2 = {
   title: "روانشناسی",
   icon: "/images/icons/head-side-thinking.svg",
-  link: "/psychology",
+  link: "/start-test",
 };
 
 const authItem = {

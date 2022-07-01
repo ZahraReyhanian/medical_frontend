@@ -117,6 +117,7 @@ const DescriptionWrapper = styled(Col)`
 `;
 const BodyDescription = styled(BodyMain)`
   text-align: justify;
+  line-height: 200%;
 `;
 
 const StartWrapper = styled.div`

@@ -13,6 +13,7 @@ import Layout from "./layout/layout";
 import BaseQuiz from "../pages/quiz/BaseQuiz";
 import ProfilePanel from "../pages/profile/ProfilePanel";
 import StartQuiz from "../pages/quiz/StartQuiz";
+import AllQuiz from "../pages/quiz/AllQuiz";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <PrivateRoute component={ProfilePanel} path="/profile" />
               <Route component={StartQuiz} path="/start-test" />
               <Route component={BaseQuiz} path="/test" />
+              <Route component={AllQuiz} path="/tests" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />
             </Switch>

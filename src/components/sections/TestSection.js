@@ -28,7 +28,7 @@ const TestSection = () => {
                 دقیق نتیجه ی آن
               </Description>
               <ButtonWrapper>
-                <Link to="">
+                <Link to="/tests">
                   <TestButton>امتحانش کن!</TestButton>
                 </Link>
               </ButtonWrapper>
