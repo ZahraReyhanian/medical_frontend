@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../../components/styles/GlobalStyles";
 
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { MediumText } from "../styles/TextStyles";
 import { Link } from "react-router-dom";
 import QuizDetail from "./QuizDetail";
+import { themes } from "../styles/ColorStyles";
 
 const QuizIntroCard = ({ title, image, description, questions, time }) => {
   return (
@@ -93,5 +93,10 @@ const ShowQuizLink = styled(Col)`
     font-weight: bold;
     text-decoration: underline;
     padding-top: 20px;
+    transition: all 0.6s;
+
+    :hover {
+      color: ${themes.light.primaryHover};
+    }
   }
 `;
