@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const TestSection = () => {
   return (
     <SectionContainer>
-      <Container>
+      <TestContainer>
         <TestRow>
           <TitleComponent title="آزمون های روانشناسی" align={"center"} />
         </TestRow>
@@ -35,23 +35,38 @@ const TestSection = () => {
             </TextWrapper>
           </TestCol>
         </TestRow>
-      </Container>
+      </TestContainer>
     </SectionContainer>
   );
 };
 
 export default TestSection;
 
+const TestContainer = styled(Container)`
+  padding: 0 6rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 1.6rem;
+  }
+`;
+
 const TestRow = styled(Row)`
   margin-top: 2.5rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 1.8rem;
+  }
 `;
 
 const TestCol = styled(Col)``;
 
 const ImgWrapper = styled.div`
-  max-width: 555px;
+  padding-left: 1rem;
   display: flex;
   justify-content: ${({ start }) => (start ? "flex-start" : "flex-end")};
+  @media screen and (max-width: 768px) {
+    padding: 1rem 0;
+  }
 `;
 
 const Img = styled.img`
@@ -64,16 +79,19 @@ const Img = styled.img`
 `;
 
 const TextWrapper = styled.div`
-  max-width: 540px;
-
+  padding-right: 1rem;
   @media screen and (max-width: 768px) {
     padding-bottom: 65px;
+    padding-right: 0;
   }
 `;
 
 const Description = styled(BodyMain)`
   padding-top: 4rem;
   padding-bottom: 3rem;
+  @media screen and (max-width: 768px) {
+    padding-top: 2rem;
+  }
 `;
 
 const ButtonWrapper = styled.div`

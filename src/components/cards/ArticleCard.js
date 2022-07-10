@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "../../components/styles/GlobalStyles";
 
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -57,8 +56,6 @@ export default ArticleCard;
 
 const CardContainer = styled.div`
   margin: 0 1rem;
-  padding-bottom: 1.3rem;
-  height: 26.7rem;
   border-radius: 10px;
   background-color: #fff;
   overflow: hidden;

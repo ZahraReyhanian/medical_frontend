@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, SectionContainer } from "../styles/GlobalStyles";
+import { Button, Container, SectionContainer } from "../styles/GlobalStyles";
 import TitleComponent from "../title/TitleComponent";
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ArticleCard from "../cards/ArticleCard";
+import { Link } from "react-router-dom";
 
 const ArticleSection = () => {
   return (
@@ -51,6 +52,11 @@ const ArticleSection = () => {
             />
           </ArticleCol>
         </ArticleRow>
+        <ButtonWrapper>
+          <Link to="/articles">
+            <AllArticleButton>همه مقاله ها</AllArticleButton>
+          </Link>
+        </ButtonWrapper>
       </Container>
     </SectionContainer>
   );
@@ -62,4 +68,21 @@ const ArticleRow = styled(Row)`
   margin: 3rem 0;
 `;
 
-const ArticleCol = styled(Col)``;
+const ArticleCol = styled(Col)`
+  margin-bottom: 1rem;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  text-align: center;
+`;
+
+const AllArticleButton = styled(Button)`
+  background: #4c8d9bcf;
+
+  &:hover {
+    background: #66edd5c4;
+  }
+`;
