@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, SectionContainer } from "../styles/GlobalStyles";
+import { Button, Container, SectionContainer } from "../styles/GlobalStyles";
 import TitleComponent from "../title/TitleComponent";
 import { BodyMain } from "../styles/TextStyles";
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const MedicalSection = () => {
   return (
@@ -13,21 +14,18 @@ const MedicalSection = () => {
         <MedicalRow>
           <MedicalRight md={5} sm={12}>
             <TitleWrapper>
-              <TitleComponent title="انواع خدمات پزشکی" align={"right"} />
+              <TitleComponent title="تشخیص بیماری ها" align={"right"} />
             </TitleWrapper>
             <MedicalServices>
-              <MedicalService>
-                <img height={30} src="/images/icons/angle-circle-left.svg" />
-                <ServiceCaption>تشخیص بیماری ها</ServiceCaption>
-              </MedicalService>
-              <MedicalService>
-                <img height={30} src="/images/icons/angle-circle-left.svg" />
-                <ServiceCaption>داروخانه نوین</ServiceCaption>
-              </MedicalService>
-              <MedicalService>
-                <img height={30} src="/images/icons/angle-circle-left.svg" />
-                <ServiceCaption>آزمایشگاه نوین</ServiceCaption>
-              </MedicalService>
+              <ServiceCaption>
+                با ارائه علائم بیماری تشخیص نسبی از بیماری احتمالی شما ارائه می
+                دهد.
+              </ServiceCaption>
+              <ServiceButtonWrapper>
+                <Link to="/diagnosis">
+                  <Button>بزن بریم!</Button>
+                </Link>
+              </ServiceButtonWrapper>
             </MedicalServices>
           </MedicalRight>
           <MedicalLeft md={7} sm={12}>
@@ -36,8 +34,8 @@ const MedicalSection = () => {
                 <ImageContainerLeft src="/images/services/doctor.png" />
               </MedicalImagesLeft>
               <MedicalImagesRight md={6} sm={12}>
-                <ImageContainerRight src="/images/services/drug.jpg" />
-                <ImageContainerRight src="/images/services/lab.jpg" />
+                <ImageContainerRight src="/images/services/health1.jpg" />
+                <ImageContainerRight src="/images/services/health2.jpg" />
               </MedicalImagesRight>
             </MedicalImagesWrapper>
           </MedicalLeft>
@@ -63,19 +61,18 @@ const TitleWrapper = styled.div`
 
 const MedicalServices = styled.div``;
 
-const MedicalService = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 2rem;
-`;
+// const MedicalService = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin: 2rem;
+// `;
 
-const ServiceCaption = styled(BodyMain)`
-  margin: 0 1rem;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    margin-right: 2rem;
-    color: #1363df;
-    cursor: pointer;
+const ServiceCaption = styled(BodyMain)``;
+
+const ServiceButtonWrapper = styled.div`
+  margin-top: 100px;
+  button {
+    width: 60%;
   }
 `;
 

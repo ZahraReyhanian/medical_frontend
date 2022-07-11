@@ -14,8 +14,8 @@ import BaseQuiz from "../pages/quiz/BaseQuiz";
 import ProfilePanel from "../pages/profile/ProfilePanel";
 import StartQuiz from "../pages/quiz/StartQuiz";
 import AllQuiz from "../pages/quiz/AllQuiz";
-import Search from "../pages/Search";
 import AllArticle from "../pages/articles/AllArticle";
+import BaseQuestion from "../pages/diseases/BaseQuestion";
 
 const App = () => {
   return (
@@ -32,7 +32,9 @@ const App = () => {
               <Route component={BaseQuiz} path="/test" />
               <Route component={AllQuiz} path="/tests" />
               <Route component={AllArticle} path="/articles" />
-              <Route component={Search} path="/search" />
+              <Route component={BaseQuestion} path="/diagnosis" />
+              {/* todo */}
+              <Route component={Article} path={"/articles/:id"} />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />
             </Switch>
