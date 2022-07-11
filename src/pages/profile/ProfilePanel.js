@@ -37,60 +37,59 @@ const ProfilePanel = () => {
     // });
   }, []);
 
-  if (!user || !student) return "loading data...";
-  else
-    return (
-      <PanelContainer>
-        <Sidebar className={` ${navToggle ? "nav-toggle" : ""}`}>
-          {/* <NavBar image={student.image} /> */}
-        </Sidebar>
-        <NavBtn onClick={navClick}>
-          <div className="line-1"></div>
-          <div className="line-2"></div>
-          <div className="line-3"></div>
-        </NavBtn>
-        <MainContent>
-          <MainContentWrapper>
-            <Switch>
-              <Route path="/profile">
-                <Dashboard
-                  user={user}
-                  student={student}
-                  BMI={BMI}
-                  progress={progress}
-                />
-              </Route>
-              <Route path="/setting">
-                <Setting />
-              </Route>
-            </Switch>
-          </MainContentWrapper>
-        </MainContent>
-      </PanelContainer>
-    );
+  // if (!user || !student) return "loading data...";
+  // else
+  return (
+    <PanelContainer>
+      <Sidebar className={` ${navToggle ? "nav-toggle" : ""}`}>
+        <NavBar image="/images/picture.jpg" />
+      </Sidebar>
+      <NavBtn onClick={navClick}>
+        <div className="line-1"></div>
+        <div className="line-2"></div>
+        <div className="line-3"></div>
+      </NavBtn>
+      <MainContent>
+        <MainContentWrapper>
+          <Switch>
+            <Route path="/profile">
+              <Dashboard
+                user={user}
+                student={student}
+                BMI={BMI}
+                progress={progress}
+              />
+            </Route>
+            <Route path="/setting">
+              <Setting />
+            </Route>
+          </Switch>
+        </MainContentWrapper>
+      </MainContent>
+    </PanelContainer>
+  );
 };
 
 export default ProfilePanel;
 
 const PanelContainer = styled.div`
   overflow: hidden;
+  display: flex;
+  padding-bottom: 3rem;
   .nav-toggle {
     transform: translateX(0);
   }
 `;
 const Sidebar = styled.div`
-  background: rgba(15, 14, 71, 0.3);
-  box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25),
-    inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(40px);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25),
+    inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2); */
 
-  width: 16%;
+  width: 20%;
   height: 100vh;
-  background: #fff;
-  position: fixed;
   z-index: 11;
 
-  transform-origin: left;
+  transform-origin: right;
   @media screen and (max-width: 1000px) {
     transform: translateX(-100%);
     transition: all 0.4s ease-in-out;
@@ -103,20 +102,20 @@ const Sidebar = styled.div`
 `;
 const MainContent = styled.div`
   width: 84%;
-  margin-left: 16%;
+  margin-right: 1.5rem;
   min-height: 100vh;
   /* background: linear-gradient(180deg, #4316db 0%, #9076e7 100%); */
   background-color: ${themes.light.backgroundColor};
   display: grid;
   position: relative;
   @media screen and (max-width: 1000px) {
-    margin-left: 0;
+    margin-right: 0;
     width: 100%;
   }
 `;
 
 const MainContentWrapper = styled.div`
-  margin: 2rem 7rem;
+  margin: 0rem 2rem;
   @media (max-width: 576px) {
     margin: 2rem;
   }

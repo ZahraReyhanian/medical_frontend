@@ -65,10 +65,7 @@ const NavBar = ({ image }) => {
               onClick={handleToggleMenu}
               style={{ cursor: "pointer", justifyContent: "center" }}
             >
-              <img
-                src={imagePath ? imagePath : `http://localhost:8000//${image}`}
-                alt={"profile"}
-              />
+              <img src={image} alt={"profile"} />
               <Grid item container direction={"column"}>
                 <Typography>{localStorage.getItem("name")}</Typography>
               </Grid>
@@ -84,12 +81,17 @@ const NavBar = ({ image }) => {
           <NavItems>
             <NavItem>
               <NavLink to="/profile" exact activeClassName="active">
-                Profile
+                پروفایل
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink to="/setting" exact activeClassName="active">
-                setting
+                تنظیمات
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/saved" exact activeClassName="active">
+                ذخیره شده ها
               </NavLink>
             </NavItem>
             {/* <NavItem>
@@ -99,7 +101,7 @@ const NavBar = ({ image }) => {
           </NavItem> */}
             <NavItem>
               <NavLink to="/" exact activeClassName="active">
-                Return to home
+                بازگشت به خانه
               </NavLink>
             </NavItem>
             <NavItem>
@@ -112,13 +114,11 @@ const NavBar = ({ image }) => {
                   window.location.reload();
                 }}
               >
-                Sign out
+                خروج
               </NavLink>
             </NavItem>
           </NavItems>
-          <NavFooter>
-            <p>Your Profile Panel</p>
-          </NavFooter>
+
           <Menu
             open={anchorMenu}
             onClose={() => setAnchorMenu(null)}
@@ -147,30 +147,29 @@ const Profile = styled.div`
   width: 100%;
   text-align: center;
   margin-top: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   img {
     width: 70%;
     max-width: 150px;
+    max-height: 150px;
     border-radius: 100%;
     border: 5px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
 
     @media screen and (max-width: 576px) {
       max-width: 90px;
+      max-height: 90px;
     }
   }
 `;
 const Nav = styled.nav`
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 `;
 const NavItems = styled.ul`
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 5rem 0 0 0;
 `;
 const NavItem = styled.li`
   list-style: none;
@@ -188,7 +187,7 @@ const NavItem = styled.li`
       content: "";
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       width: 0.4rem;
       height: 100%;
       background-color: #0381ff33;
@@ -208,17 +207,5 @@ const NavItem = styled.li`
   }
   .active {
     background-color: #037fff;
-  }
-`;
-const NavFooter = styled.footer`
-  width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  p {
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 20px;
-    @media screen and (max-width: 576px) {
-      font-size: 16px;
-    }
   }
 `;

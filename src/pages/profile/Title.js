@@ -24,7 +24,7 @@ const TItleWrapper = styled.div`
     content: "";
     bottom: 0;
     position: absolute;
-    left: 0;
+    right: 0;
     width: 6rem;
     height: 0.4rem;
     background-color: #0381ff38;
@@ -34,7 +34,7 @@ const TItleWrapper = styled.div`
     content: "";
     bottom: 0;
     position: absolute;
-    left: 0;
+    right: 0;
     width: 3rem;
     height: 0.4rem;
     background-color: #037fff;
@@ -43,7 +43,7 @@ const TItleWrapper = styled.div`
   span {
     position: absolute;
     top: 15%;
-    left: 0;
+    right: 0;
     font-size: 5rem;
     color: #037fff;
     opacity: 0.07;

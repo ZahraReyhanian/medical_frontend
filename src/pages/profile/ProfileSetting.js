@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const ProfileSetting = () => {
   const [email, setEmail] = useState();
   const [name, setName] = useState();
+  const [username, setUsername] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [age, setAge] = useState();
@@ -66,55 +67,46 @@ const ProfileSetting = () => {
       <AccountRow>
         <Col lg={12} md={12} sm={12}>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+            <Form.Group className="mb-5" controlId="formBasicEmail">
+              <Form.Label>ایمیل</Form.Label>
               <Form.Control
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="Enter Email"
+                placeholder="ایمیل را وارد کنید"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Name</Form.Label>
+            <Form.Group className="mb-5" controlId="formBasicName">
+              <Form.Label>نام کاربری</Form.Label>
+              <Form.Control
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                placeholder="نام کاربری را وراد کنید"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-5" controlId="formBasicName">
+              <Form.Label>نام و نام خانوادگی</Form.Label>
               <Form.Control
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
-                placeholder="Enter Name"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicWeight">
-              <Form.Label>Weight</Form.Label>
-              <Form.Control
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-                type="number"
-                placeholder="Enter Weight"
+                placeholder="نام و نام خانوادگی"
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicHeight">
-              <Form.Label>Height</Form.Label>
-              <Form.Control
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                type="number"
-                placeholder="Height"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicAge">
-              <Form.Label>Age</Form.Label>
+            <Form.Group className="mb-5" controlId="formBasicAge">
+              <Form.Label>سن</Form.Label>
               <Form.Control
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 type="number"
-                placeholder="Age"
+                placeholder="سن"
               />
             </Form.Group>
 
-            <FormLabel component="legend">Gender</FormLabel>
+            <FormLabel component="legend">جنسیت</FormLabel>
             <RadioGroup
               value={gender}
               onChange={(e) => setGender(e.target.value)}
@@ -126,27 +118,18 @@ const ProfileSetting = () => {
                 value="female"
                 checked={gender == "female"}
                 control={<Radio />}
-                label="Female"
+                label="زن"
               />
               <FormControlLabel
                 checked={gender == "male"}
                 value="male"
                 control={<Radio />}
-                label="Male"
+                label="مرد"
               />
             </RadioGroup>
-
-            <Form.Group className="mb-3" controlId="formBasicProblem">
-              <Form.Label>Problem</Form.Label>
-              <Form.Control
-                value={problem}
-                onChange={(e) => setProblem(e.target.value)}
-                as="textarea"
-                placeholder="Enter Problem if you have"
-                rows={3}
-              />
-            </Form.Group>
-            <SettingButton onClick={handleProfile}>Submit</SettingButton>
+            <ButtonWrapper>
+              <SettingButton onClick={handleProfile}>ثبت</SettingButton>
+            </ButtonWrapper>
           </Form>
         </Col>
       </AccountRow>
@@ -158,6 +141,7 @@ export default ProfileSetting;
 
 const AccountRow = styled(Row)`
   margin-top: 2rem;
+  padding-left: 15rem;
 `;
 
 const PersonalWrapper = styled.div`
@@ -186,4 +170,8 @@ const SettingButton = styled(Button)`
       inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.5);
     transform: translateY(-1px);
   }
+`;
+
+const ButtonWrapper = styled.div`
+  margin: 3rem 0;
 `;

@@ -16,6 +16,7 @@ import StartQuiz from "../pages/quiz/StartQuiz";
 import AllQuiz from "../pages/quiz/AllQuiz";
 import AllArticle from "../pages/articles/AllArticle";
 import BaseQuestion from "../pages/diseases/BaseQuestion";
+import Article from "../pages/articles/Article";
 
 const App = () => {
   return (
@@ -24,17 +25,20 @@ const App = () => {
         <AuthProvider>
           <Layout>
             <Switch>
-              <AuthRoute path={"/login"} component={AuthPage} />
               {/* <AuthRoute path={"/reset/:token"} component={Reset} /> */}
 
               <PrivateRoute component={ProfilePanel} path="/profile" />
+              <PrivateRoute component={ProfilePanel} path="/setting" />
+              <PrivateRoute component={ProfilePanel} path="/saved" />
+
+              <AuthRoute path={"/login"} component={AuthPage} />
               <Route component={StartQuiz} path="/start-test" />
               <Route component={BaseQuiz} path="/test" />
               <Route component={AllQuiz} path="/tests" />
-              <Route component={AllArticle} path="/articles" />
               <Route component={BaseQuestion} path="/diagnosis" />
               {/* todo */}
               <Route component={Article} path={"/articles/:id"} />
+              <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />
             </Switch>
