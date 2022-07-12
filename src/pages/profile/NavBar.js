@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 // import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../../components/context/AuthContext";
 
 const NavBar = ({ image }) => {
   const [imageFile, setImageFile] = useState();
@@ -52,6 +53,8 @@ const NavBar = ({ image }) => {
     //   });
     // }
   };
+
+  let { logoutUser } = useContext(AuthContext);
 
   if (!image) return "loading data....";
   else
@@ -106,13 +109,10 @@ const NavBar = ({ image }) => {
             </NavItem>
             <NavItem>
               <NavLink
-                to="/signout"
+                to="/logout"
                 exact
                 activeClassName="active"
-                onClick={() => {
-                  localStorage.clear();
-                  window.location.reload();
-                }}
+                onClick={logoutUser}
               >
                 خروج
               </NavLink>

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -21,17 +22,28 @@ export const AuthProvider = ({ children }) => {
 
   const history = useHistory();
 
+  const validateLogin = (userInfo) => {
+    if (!userInfo.username) return "نام کاربری را وارد کنید";
+    if (!userInfo.password) return "رمز عبور را وارد کنید";
+  };
+
   let loginUser = async (e) => {
     e.preventDefault();
+
+    const userInfo = {
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
+
+    const error = validateLogin(userInfo);
+    if (error) return toast.warn(error);
+
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-      }),
+      body: JSON.stringify(userInfo),
     });
     let data = await response.json();
 
@@ -39,6 +51,7 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
+      toast.success("خوش آمدید");
       history.push("/");
     } else {
       alert("Something went wrong!");

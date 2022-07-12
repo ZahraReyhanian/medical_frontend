@@ -17,10 +17,6 @@ const RESET_TAB_VALUE = 3;
 const AuthPage = () => {
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
 
-  //login state
-  const [usernameLogin, setUsernameLogin] = useState();
-  const [passwordLogin, setPasswordLogin] = useState();
-
   //register state
   const [fullNameRegister, setFullNameRegister] = useState();
   const [emailRegister, setEmailRegister] = useState();
@@ -37,11 +33,6 @@ const AuthPage = () => {
 
   const handleChangeTabReset = (e, newValue) => {
     setTab(RESET_TAB_VALUE);
-  };
-
-  const validateLogin = (user) => {
-    if (!user.email) return "Enter email";
-    if (!user.password) return "Enter password";
   };
 
   const validateRegister = (user) => {
@@ -89,26 +80,6 @@ const AuthPage = () => {
     // });
   };
 
-  const handleLogin = () => {
-    // const user = {
-    //   email: usernameLogin,
-    //   password: passwordLogin,
-    // };
-    // const error = validateLogin(user);
-    // if (error) return toast.warn(error);
-    // loginApi(user, (isOk, data) => {
-    //   if (!isOk) return toast.error(data);
-    //   const delayInMilliseconds = 1000; //1 second
-    //   setTimeout(function () {
-    //     toast.success("Successful !");
-    //     localStorage.setItem("x-auth-token", data.data.token);
-    //     localStorage.setItem("email", data.data.user.email);
-    //     localStorage.setItem("name", data.data.user.name);
-    //     window.location.reload();
-    //   }, delayInMilliseconds);
-    // });
-  };
-
   let { loginUser } = useContext(AuthContext);
 
   return (
@@ -122,8 +93,6 @@ const AuthPage = () => {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     name="username"
-                    value={usernameLogin}
-                    onChange={(e) => setUsernameLogin(e.target.value)}
                     type="text"
                     placeholder="شناسه کاربری"
                   ></Form.Control>
@@ -132,8 +101,6 @@ const AuthPage = () => {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Control
                     name="password"
-                    value={passwordLogin}
-                    onChange={(e) => setPasswordLogin(e.target.value)}
                     type="password"
                     placeholder="رمز عبور"
                   />
