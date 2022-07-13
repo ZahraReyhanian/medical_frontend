@@ -16,3 +16,11 @@ export const articleAxios = axios.create({
     Accept: "application/json",
   },
 });
+
+export const earliestArticleAxios = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+});

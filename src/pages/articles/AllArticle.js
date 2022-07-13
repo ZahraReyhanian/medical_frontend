@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Container } from "../../components/styles/GlobalStyles";
 import TitleComponent from "../../components/title/TitleComponent";
@@ -12,8 +12,6 @@ import { allArticleAxios } from "../../api/api_article";
 import ReactPaginate from "react-paginate";
 
 const AllArticle = () => {
-  const [articles, setArticles] = useState([]);
-
   const [data, pageCount, error, loading, axiosFetch] = useAxios();
 
   const getData = (currentPage) => {

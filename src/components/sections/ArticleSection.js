@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Container, SectionContainer } from "../styles/GlobalStyles";
 import TitleComponent from "../title/TitleComponent";
@@ -6,8 +6,24 @@ import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ArticleCard from "../cards/ArticleCard";
 import { Link } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
+import { earliestArticleAxios } from "../../api/api_article";
 
 const ArticleSection = () => {
+  const [data, pageCount, error, loading, axiosFetch] = useAxios();
+
+  const getData = () => {
+    axiosFetch({
+      axiosInstance: earliestArticleAxios,
+      method: "get",
+      url: "/articles/earliest/",
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <SectionContainer>
       <Container>
@@ -15,7 +31,33 @@ const ArticleSection = () => {
           <TitleComponent title="جدیدترین مقاله ها" align={"center"} />
         </ArticleRow>
         <ArticleRow>
-          <ArticleCol md={4} sm={12}>
+          {loading && <p>در حال بارگزاری ...</p>}
+
+          {!loading && error && <p className="errMsg">{error}</p>}
+
+          {!loading && !error && data?.length && (
+            <>
+              {data.map((article, i) => {
+                return (
+                  <ArticleCol md={4} sm={12}>
+                    <ArticleCard
+                      title={article.title}
+                      description={article.short_body}
+                      image={
+                        article.image
+                          ? "http://127.0.0.1:8000" + article.image
+                          : "/images/card_img.jpg"
+                      }
+                      author={article.user}
+                      date={article.updated_at}
+                      link={"/articles/" + article.id}
+                    />
+                  </ArticleCol>
+                );
+              })}
+            </>
+          )}
+          {/* <ArticleCol md={4} sm={12}>
             <ArticleCard
               title="شکر گزاری"
               description="همه ی ما نیاز به راز و نیاز با معبود خود داریم و بهترین روش آن شکر گزاری است. در این ویدیو ..."
@@ -50,7 +92,7 @@ const ArticleSection = () => {
               saved="1"
               link="/articles"
             />
-          </ArticleCol>
+          </ArticleCol> */}
         </ArticleRow>
         <ButtonWrapper>
           <Link to="/articles">
