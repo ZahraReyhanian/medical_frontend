@@ -16,7 +16,7 @@ const AllArticle = () => {
     axiosFetch({
       axiosInstance: allArticleAxios,
       method: "get",
-      url: "articles/",
+      url: "/articles/",
     });
   };
 
