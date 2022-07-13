@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../../components/styles/GlobalStyles";
 import TitleComponent from "../../components/title/TitleComponent";
@@ -9,20 +9,32 @@ import ArticleCard from "../../components/cards/ArticleCard";
 import useAxios from "../../hooks/useAxios";
 import { allArticleAxios } from "../../api/api_article";
 
-const AllArticle = () => {
-  const [articles, error, loading, axiosFetch] = useAxios();
+import ReactPaginate from "react-paginate";
 
-  const getData = () => {
+const AllArticle = () => {
+  const [articles, setArticles] = useState([]);
+
+  const [data, pageCount, error, loading, axiosFetch] = useAxios();
+
+  const getData = (currentPage) => {
     axiosFetch({
       axiosInstance: allArticleAxios,
       method: "get",
-      url: "/articles/",
+      url: "/articles/?page=" + currentPage,
     });
   };
 
   useEffect(() => {
-    getData();
+    getData(1);
   }, []);
+
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+
+    getData(currentPage);
+
+    window.scrollTo(0, 0);
+  };
 
   return (
     <Container>
@@ -36,24 +48,45 @@ const AllArticle = () => {
 
         {!loading && error && <p className="errMsg">{error}</p>}
 
-        {!loading &&
-          !error &&
-          articles?.length &&
-          articles.map((article, i) => {
-            return (
-              <AllArticleCol md={4} sm={12}>
-                <ArticleCard
-                  title={article.title}
-                  description={article.short_body}
-                  image={article.image}
-                  author={article.user}
-                  date={article.updated_at}
-                  saved="0"
-                  link={"/articles/" + article.id}
-                />
-              </AllArticleCol>
-            );
-          })}
+        {!loading && !error && data.results?.length && (
+          <>
+            {data.results.map((article, i) => {
+              return (
+                <AllArticleCol md={4} sm={12}>
+                  <ArticleCard
+                    title={article.title}
+                    description={article.short_body}
+                    image={
+                      article.image ? article.image : "/images/card_img.jpg"
+                    }
+                    author={article.user}
+                    date={article.updated_at}
+                    link={"/articles/" + article.id}
+                  />
+                </AllArticleCol>
+              );
+            })}
+          </>
+        )}
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
       </AllArticleRow>
     </Container>
   );

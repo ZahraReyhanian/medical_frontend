@@ -13,7 +13,7 @@ import { articleAxios } from "../../api/api_article";
 const Article = () => {
   const location = useLocation();
 
-  const [article, error, loading, axiosFetch] = useAxios();
+  const [article, pageCount, error, loading, axiosFetch] = useAxios();
 
   const getData = (url) => {
     axiosFetch({
@@ -45,7 +45,9 @@ const Article = () => {
               <ArticleAuthor>{article.user}</ArticleAuthor>
             </ArticleDetail>
             <ImageWrapper>
-              <ArticleImage src={article.image} />
+              <ArticleImage
+                src={article.image ? article.image : "/images/card_img.jpg"}
+              />
             </ImageWrapper>
             <DescriptionWrapper>
               <ArticleDescription>
@@ -63,6 +65,10 @@ export default Article;
 
 const ArticleContainer = styled.div`
   padding: 0 12rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 const ArticleDetail = styled.div`
@@ -83,7 +89,13 @@ const ImageWrapper = styled.div`
   margin-top: 3rem;
 `;
 
-const ArticleImage = styled.img``;
+const ArticleImage = styled.img`
+  max-width: 40rem;
+
+  @media (max-width: 768px) {
+    max-width: 18rem;
+  }
+`;
 
 const DescriptionWrapper = styled.div`
   margin: 3rem 0;
@@ -95,5 +107,11 @@ const ArticleDescription = styled(BodyMain)`
   p,
   span {
     font-family: Shabnam, serif !important;
+    @media (max-width: 768px) {
+      font-size: 14px !important;
+    }
+  }
+  img {
+    width: 100%;
   }
 `;

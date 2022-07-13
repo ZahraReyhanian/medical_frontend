@@ -14,7 +14,6 @@ const ArticleCard = ({
   commentCount,
   link,
   date,
-  saved,
 }) => {
   return (
     <CardContainer>
@@ -31,21 +30,20 @@ const ArticleCard = ({
           <Caption2>{description}</Caption2>
         </DescriptionWrapper>
         <FooterWrapper md={12} sm={12}>
-          <SaveItemWrapper>
+          {/* <SaveItemWrapper>
             {saved == 1 ? (
               <img src="/images/icons/filled-saved.png" />
             ) : (
               <img src="/images/icons/saved.png" />
             )}
-          </SaveItemWrapper>
-          <DetailWrapper>
-            <AuthorWrapper>{author}</AuthorWrapper>
-            <DateWrapper>{date}</DateWrapper>
-            {/* <DotWrapper>.</DotWrapper>
+          </SaveItemWrapper> */}
+
+          <AuthorWrapper>{author}</AuthorWrapper>
+          <DateWrapper>{date}</DateWrapper>
+          {/* <DotWrapper>.</DotWrapper>
             <CommentCountWrapper>
               {commentCount} <img src="/images/icons/comment.png" />
             </CommentCountWrapper> */}
-          </DetailWrapper>
         </FooterWrapper>
       </Row>
     </CardContainer>
@@ -97,19 +95,6 @@ const FooterWrapper = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const SaveItemWrapper = styled.div`
-  img {
-    width: 30px;
-    height: 33px;
-  }
-`;
-
-const DetailWrapper = styled.div`
-  text-align: left;
-  direction: ltr;
-  font-size: 14px;
 `;
 
 const AuthorWrapper = styled.p`

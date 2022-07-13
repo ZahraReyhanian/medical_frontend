@@ -106,6 +106,9 @@ const Wrapper = styled.div`
 
 const LogoWrapper = styled.img`
   height: 5rem;
+  @media (max-width: 768px) {
+    height: 3.5rem;
+  }
 `;
 
 const MenuWrapper = styled.div`

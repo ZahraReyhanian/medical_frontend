@@ -5,6 +5,7 @@ const useAxios = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [controller, setController] = useState();
+  const [pageCount, setPageCount] = useState(0);
 
   const axiosFetch = async (configObj) => {
     const { axiosInstance, method, url, requestConfig = {} } = configObj;
@@ -19,6 +20,13 @@ const useAxios = () => {
       });
       console.log(res);
       setResponse(res.data);
+      if (res.data.count) {
+        if (res.data.next != null)
+          setPageCount(Math.ceil(res.data.count / res.data.results.length));
+      } else {
+        setPageCount(-1);
+      }
+      setError("");
     } catch (err) {
       console.log(err.message);
       setError(err.message);
@@ -34,7 +42,7 @@ const useAxios = () => {
     return () => controller && controller.abort();
   }, [controller]);
 
-  return [response, error, loading, axiosFetch];
+  return [response, pageCount, error, loading, axiosFetch];
 };
 
 export default useAxios;
