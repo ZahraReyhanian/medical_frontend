@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import QuizDetail from "./QuizDetail";
 import { themes } from "../styles/ColorStyles";
 
-const QuizIntroCard = ({ title, image, description, questions, time }) => {
+const QuizIntroCard = ({ title, image, description, questions, url, time }) => {
   return (
     <CardContainer>
       <div>
@@ -30,15 +30,15 @@ const QuizIntroCard = ({ title, image, description, questions, time }) => {
             <DetailWrapper md={9}>
               <QuizDetail
                 icon="/images/icons/time.png"
-                description="مدت زمان : 5 دقیقه"
+                description={`مدت زمان : ${time} دقیقه`}
               />
               <QuizDetail
                 icon="/images/icons/question.png"
-                description="تعداد سوالات : 40"
+                description={`تعداد سوالات : ${questions}`}
               />
             </DetailWrapper>
             <ShowQuizLink md={3}>
-              <Link to="/start-test">
+              <Link to={url}>
                 <p>مشاهده آزمون</p>
               </Link>
             </ShowQuizLink>

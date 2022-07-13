@@ -32,9 +32,11 @@ const App = () => {
               <PrivateRoute component={ProfilePanel} path="/saved" />
 
               <AuthRoute path={"/login"} component={AuthPage} />
-              <Route component={StartQuiz} path="/start-test" />
-              <Route component={BaseQuiz} path="/test" />
+
+              <Route component={BaseQuiz} path="/tests/:id/questions" />
+              <Route component={StartQuiz} path="/tests/:id" />
               <Route component={AllQuiz} path="/tests" />
+
               <Route component={BaseQuestion} path="/diagnosis" />
               {/* todo */}
               <Route component={Article} path={"/articles/:id"} />

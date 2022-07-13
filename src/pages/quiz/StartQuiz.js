@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   Container,
@@ -11,61 +11,74 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BodyMain } from "../../components/styles/TextStyles";
 import SmallDetailCard from "../../components/cards/SmallDetailCard";
 import QuizStartCard from "../../components/cards/QuizStartCard";
+import { useLocation } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
+import { quizAxios } from "../../api/api_quiz";
 
 const StartQuiz = () => {
+  const location = useLocation();
+
+  const [quiz, pageCount, error, loading, axiosFetch] = useAxios();
+
+  const getData = (url) => {
+    axiosFetch({
+      axiosInstance: quizAxios,
+      method: "get",
+      url: url,
+    });
+  };
+
+  useEffect(() => {
+    const url = "/psychology" + location.pathname;
+
+    getData(url);
+  }, []);
+
   return (
     <QuizDetailContainer>
       <Container>
-        <Row>
-          <QuizColRight md={7} sm={12}>
-            <TitleWrapper>
-              <a href="/">آزمون های روانشناسی</a>
-              <span> / </span>
-              <TitleComponent title=" انواع شخصیت" align={"right"} />
-            </TitleWrapper>
-            <DescriptionRow>
-              <SmallDetail md={6} sm={12}>
-                <SmallDetailCard
-                  icon="/images/icons/question.png"
-                  description="تعداد سوالات : 40"
-                />
-              </SmallDetail>
-              <SmallDetail md={6} sm={12}>
-                <SmallDetailCard
-                  icon="/images/icons/time.png"
-                  description="مدت زمان : 5 دقیقه"
-                />
-              </SmallDetail>
-              <DescriptionWrapper md={12} sm={12}>
-                <BodyDescription>
-                  شخصیت درون گرایی دارید یا برون گرا هستید؟ ما انسان‌ها دارای
-                  ویژگی‌های شخصیتی مختلفی هستیم، که این ویژگی‌های باعث می شود،
-                  در موقعیتی یکسان رفتارهای متفاوتی از دیگران داشته باشیم. یکی
-                  از این خصوصیات شخصیتی که تاثیر زیادی نیز بر همه جنبه‌های زندگی
-                  ما دارد، "درون‌گرایی" و "برون‌گرایی" است. البته هیچکس دورن گرا
-                  یا برون گرای مطلق نیست و هرکس دارای درجه ای از هردوی این هاست
-                  و هرگاه میزان درونگرایی فرد از برونگرایی او بیشتر باشد در دسته
-                  ی درونگرا قرار می گیرد و هر گاه درجه ی برونگرایی بیشتر شود او
-                  برونگرا نام می گیرد. تیپ شخصیتی شما کدام است؟ برای شناخت تیپ
-                  شخصیتی خود و آگاهی از این که برون گرا هستید یا درون گرا، تست
-                  روانشناسی زیر را انجام داده و در پایان ضمن شناخت تیپ شخصیتی
-                  خود از توصیه های ارائه شده برای بهبود تعاملات خود استفاده
-                  نمایید. این پرسشنامه شامل 33 سوال است لطفا هر سوال را با دقت
-                  بخوانید و با توجه به ویژگی های فردی خود با یکی از گزینه های
-                  زیر پاسخ دهید.
-                </BodyDescription>
-              </DescriptionWrapper>
-            </DescriptionRow>
-          </QuizColRight>
-          <QuizColLeft md={5} sm={12}>
-            <ImageContainer>
-              <QuizImage src="/images/download.jpg" />
-            </ImageContainer>
-            <StartWrapper>
-              <QuizStartCard />
-            </StartWrapper>
-          </QuizColLeft>
-        </Row>
+        {loading && <p>در حال بارگزاری ...</p>}
+
+        {!loading && error && <p className="errMsg">{error}</p>}
+
+        {!loading && !error && quiz && (
+          <Row>
+            <QuizColRight md={7} sm={12}>
+              <TitleWrapper>
+                <a href="/">آزمون های روانشناسی</a>
+                <span> / </span>
+                <TitleComponent title={quiz.title} align={"right"} />
+              </TitleWrapper>
+              <DescriptionRow>
+                <SmallDetail md={6} sm={12}>
+                  <SmallDetailCard
+                    icon="/images/icons/question.png"
+                    description={"تعداد سوالات : " + quiz.questions}
+                  />
+                </SmallDetail>
+                <SmallDetail md={6} sm={12}>
+                  <SmallDetailCard
+                    icon="/images/icons/time.png"
+                    description="مدت زمان : 5 دقیقه"
+                  />
+                </SmallDetail>
+                <DescriptionWrapper md={12} sm={12}>
+                  <BodyDescription>
+                    <td dangerouslySetInnerHTML={{ __html: quiz.body }} />
+                  </BodyDescription>
+                </DescriptionWrapper>
+              </DescriptionRow>
+            </QuizColRight>
+            <QuizColLeft md={5} sm={12}>
+              <ImageContainer>
+                <QuizImage src={quiz.image} />
+              </ImageContainer>
+              <StartWrapper>
+                <QuizStartCard type={quiz.type} price={quiz.price} />
+              </StartWrapper>
+            </QuizColLeft>
+          </Row>
+        )}
       </Container>
     </QuizDetailContainer>
   );
@@ -117,7 +130,18 @@ const DescriptionWrapper = styled(Col)`
 `;
 const BodyDescription = styled(BodyMain)`
   text-align: justify;
-  line-height: 200%;
+  line-height: 32px;
+  font-family: Shabnam, serif !important;
+  p,
+  span {
+    font-family: Shabnam, serif !important;
+    @media (max-width: 768px) {
+      font-size: 14px !important;
+    }
+  }
+  img {
+    width: 100%;
+  }
 `;
 
 const StartWrapper = styled.div`

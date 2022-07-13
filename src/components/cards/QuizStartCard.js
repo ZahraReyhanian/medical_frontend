@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../styles/GlobalStyles";
 
-const QuizStartCard = () => {
+const QuizStartCard = ({ type, price }) => {
   return (
     <CardContainer>
       <BackCard>
         <CardWrapper>
           <QuizPriceWrapper>
-            <p>قیمت : 30000 تومان</p>
+            <p>{type == "free" ? "رایگان" : `قیمت : ${price} تومان`}</p>
           </QuizPriceWrapper>
           <QuizStartButtonWrapper>
             <QuizStartButton>شروع</QuizStartButton>
@@ -54,8 +54,9 @@ const CardWrapper = styled.div`
 const QuizPriceWrapper = styled.div`
   p {
     text-align: center;
-    font-size: 30px;
+    font-size: 38px;
     font-weight: 600;
+    color: #207561;
   }
 `;
 
