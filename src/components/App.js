@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./api/PrivateRoute";
+import PrivateRoute from "../hooks/PrivateRoute";
 
 import Home from "../pages/Home";
 import AuthPage from "../pages/auth/AuthPage";

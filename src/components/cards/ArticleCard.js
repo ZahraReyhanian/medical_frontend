@@ -41,10 +41,10 @@ const ArticleCard = ({
           <DetailWrapper>
             <AuthorWrapper>{author}</AuthorWrapper>
             <DateWrapper>{date}</DateWrapper>
-            <DotWrapper>.</DotWrapper>
+            {/* <DotWrapper>.</DotWrapper>
             <CommentCountWrapper>
               {commentCount} <img src="/images/icons/comment.png" />
-            </CommentCountWrapper>
+            </CommentCountWrapper> */}
           </DetailWrapper>
         </FooterWrapper>
       </Row>
