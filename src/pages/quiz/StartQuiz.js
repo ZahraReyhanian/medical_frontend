@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import {
   Container,
@@ -11,12 +11,15 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BodyMain } from "../../components/styles/TextStyles";
 import SmallDetailCard from "../../components/cards/SmallDetailCard";
 import QuizStartCard from "../../components/cards/QuizStartCard";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { quizAxios } from "../../api/api_quiz";
+import AuthContext from "../../components/context/AuthContext";
+import { Warning } from "@material-ui/icons";
 
 const StartQuiz = () => {
   const location = useLocation();
+  let { user } = useContext(AuthContext);
 
   const [quiz, pageCount, error, loading, axiosFetch] = useAxios();
 
@@ -74,7 +77,18 @@ const StartQuiz = () => {
                 <QuizImage src={quiz.image} />
               </ImageContainer>
               <StartWrapper>
-                <QuizStartCard type={quiz.type} price={quiz.price} />
+                {user ? (
+                  <Link to={`${location.pathname}/questions`}>
+                    <QuizStartCard type={quiz.type} price={quiz.price} />
+                  </Link>
+                ) : (
+                  <WarningWrapper>
+                    <Warning />
+                    <Link to="/login">
+                      <span>برای مشاهده تست وارد سایت شوید</span>
+                    </Link>
+                  </WarningWrapper>
+                )}
               </StartWrapper>
             </QuizColLeft>
           </Row>
@@ -148,4 +162,20 @@ const StartWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 4rem;
+`;
+
+const WarningWrapper = styled.div`
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 2rem 3rem;
+  margin-top: 3.2rem;
+  background-color: #fff;
+
+  svg {
+    fill: #f2df3a;
+  }
+
+  span {
+    padding: 0 12px;
+  }
 `;

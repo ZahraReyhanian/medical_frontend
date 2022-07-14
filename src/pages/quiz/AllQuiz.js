@@ -64,8 +64,8 @@ const AllQuiz = () => {
           </>
         )}
         <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
+          previousLabel={"<"}
+          nextLabel={">"}
           breakLabel={"..."}
           pageCount={pageCount}
           marginPagesDisplayed={2}
