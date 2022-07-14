@@ -6,13 +6,14 @@ import QuestionCount from "../components/QuestionCount";
 import AnswerOption from "../components/AnswerOption";
 
 const Quiz = (props) => {
-  const renderAnswerOptions = (key) => {
+  const renderAnswerOptions = (key, val) => {
+    console.log(key);
+    console.log(val);
     return (
       <AnswerOption
-        key={key.content}
-        answerContent={key.content}
-        answerType={key.type}
-        answer={props.answer}
+        key={key}
+        grade={key}
+        answerContent={val}
         questionId={props.questionId}
         onAnswerSelected={props.onAnswerSelected}
       />
@@ -32,7 +33,12 @@ const Quiz = (props) => {
         <QuestionCount counter={props.questionId} total={props.questionTotal} />
         <Question content={props.question} />
         <ul className="answerOptions">
-          {props.answerOptions.map(renderAnswerOptions)}
+          {Object.entries(props.answerOptions).map(
+            ([key, value]) =>
+              // Object.keys().map(function (key, index) {
+              renderAnswerOptions(key, value)
+            // }
+          )}
         </ul>
       </div>
     </CSSTransition>

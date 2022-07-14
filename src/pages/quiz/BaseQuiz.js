@@ -1,112 +1,142 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { quizAxios } from "../../api/api_quiz";
+import useAxiosAuth from "../../hooks/useAxiosAuth";
+import useAxiosAuth_old from "../../hooks/useAxiosAuth_old";
 import quizQuestions from "./api/quizQuestions";
 import Quiz from "./components/Quiz";
 import Result from "./components/Result";
 import "./styles.css";
 
-class BaseQuiz extends Component {
-  constructor(props) {
-    super(props);
+const BaseQuiz = () => {
+  const [quiz, setQuiz] = useState({});
+  const [counter, setCounter] = useState(0);
+  const [questionId, setQuestionId] = useState(1);
+  const [question, setQuestion] = useState("");
+  const [answerOptions, setAnswerOptions] = useState([]);
+  const [answer, setAnswer] = useState("");
+  const [userAnswer, setUserAnswer] = useState(0);
+  const [result, setResult] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-    this.state = {
-      counter: 0,
-      questionId: 1,
-      question: "",
-      answerOptions: [],
-      answer: "",
-      answersCount: {},
-      result: "",
-    };
+  // this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
 
-    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-  }
+  const location = useLocation();
 
-  componentDidMount() {
-    this.setState({
-      question: quizQuestions[0].question,
-      answerOptions: quizQuestions[0].answers,
-    });
-  }
+  let api = useAxiosAuth_old();
 
-  handleAnswerSelected(event) {
-    this.setUserAnswer(event.currentTarget.value);
+  const getData = async (url) => {
+    let data = {};
+    try {
+      let response = await api.get(url);
+      data = response.data;
+      console.log(data);
 
-    if (this.state.questionId < quizQuestions.length) {
-      setTimeout(() => this.setNextQuestion(), 300);
-    } else {
-      setTimeout(() => this.setResults(this.getResults()), 300);
+      setQuiz(data);
+
+      setQuestion(data.testquestions[0].question);
+
+      if (data.answers.answers) {
+        setAnswerOptions(data.answers.answers);
+      } else {
+        console.log(data.testquestions[0].answers.answers);
+        setAnswerOptions(data.testquestions[0].answers.answers);
+      }
+    } catch (err) {
+      console.log(err.message);
+
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  setUserAnswer(answer) {
-    this.setState((state, props) => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1,
-      },
-      answer: answer,
-    }));
-  }
+  useEffect(() => {
+    const url = "/psychology" + location.pathname;
 
-  setNextQuestion() {
-    const counter = this.state.counter + 1;
-    const questionId = this.state.questionId + 1;
+    getData(url);
 
-    this.setState({
-      counter: counter,
-      questionId: questionId,
-      question: quizQuestions[counter].question,
-      answerOptions: quizQuestions[counter].answers,
-      answer: "",
-    });
-  }
+    //     question: quizQuestions[0].question,
+    //     answerOptions: quizQuestions[0].answers,
+  }, []);
 
-  getResults() {
-    const answersCount = this.state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
-    const maxAnswerCount = Math.max.apply(null, answersCountValues);
+  const handleAnswerSelected = (event) => {
+    console.log("rrrrrrrrrrrrrrrr");
+    console.log(userAnswer);
+    const currentChoose = parseInt(event.currentTarget.value);
+    setUserAnswer(userAnswer + currentChoose);
 
-    return answersCountKeys.filter(
-      (key) => answersCount[key] === maxAnswerCount
-    );
-  }
-
-  setResults(result) {
-    if (result.length === 1) {
-      this.setState({ result: result[0] });
+    if (questionId < quiz.testquestions.length) {
+      setTimeout(() => setNextQuestion(), 300);
     } else {
-      this.setState({ result: "Undetermined" });
+      setTimeout(() => setResults(), 500);
     }
-  }
+  };
 
-  renderQuiz() {
+  const setNextQuestion = () => {
+    setCounter(counter + 1);
+    setQuestionId(questionId + 1);
+
+    setQuestion(quiz.testquestions[counter + 1].question);
+
+    if (quiz.answers.answers) {
+      setAnswerOptions(quiz.answers.answers);
+    } else {
+      console.log(quiz.testquestions[counter + 1].answers.answers);
+      setAnswerOptions(quiz.testquestions[counter + 1].answers.answers);
+    }
+
+    // this.setState({
+    //   counter: counter,
+    //   questionId: questionId,
+    //   question: quizQuestions[counter].question,
+    //   answerOptions: quizQuestions[counter].answers,
+    //   answer: "",
+    // });
+  };
+
+  const setResults = () => {
+    let res;
+    setUserAnswer((state) => {
+      console.log(state); // "React is awesome!"
+      res = state;
+      return state;
+    });
+    console.log(res);
+
+    setResult("finish");
+  };
+
+  const renderQuiz = () => {
     return (
       <Quiz
-        answer={this.state.answer}
-        answerOptions={this.state.answerOptions}
-        questionId={this.state.questionId}
-        question={this.state.question}
-        questionTotal={quizQuestions.length}
-        onAnswerSelected={this.handleAnswerSelected}
+        answer={answer}
+        answerOptions={answerOptions}
+        questionId={questionId}
+        question={question}
+        questionTotal={quiz.testquestions.length}
+        onAnswerSelected={handleAnswerSelected}
       />
     );
-  }
+  };
 
-  renderResult() {
-    return <Result quizResult={this.state.result} />;
-  }
+  const renderResult = () => {
+    return <Result quizResult={result} />;
+  };
 
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <h2>React Quiz</h2>
-        </div>
-        {this.state.result ? this.renderResult() : this.renderQuiz()}
+  return (
+    <div className="App">
+      <div className="App-header">
+        <h2>React Quiz</h2>
       </div>
-    );
-  }
-}
+      {loading && <p>در حال بارگزاری ...</p>}
+
+      {!loading && error && <p className="errMsg">{error}</p>}
+
+      {!loading && !error && quiz && (result ? renderResult() : renderQuiz())}
+    </div>
+  );
+};
 
 export default BaseQuiz;
