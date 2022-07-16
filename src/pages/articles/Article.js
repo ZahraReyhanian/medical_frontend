@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../../components/styles/GlobalStyles";
 import TitleComponent from "../../components/title/TitleComponent";
-
+import InnerHTML from 'dangerously-set-html-content'
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BodyMain } from "../../components/styles/TextStyles";
@@ -51,7 +51,7 @@ const Article = () => {
             </ImageWrapper>
             <DescriptionWrapper>
               <ArticleDescription>
-                <td dangerouslySetInnerHTML={{ __html: article.body }} />
+              <InnerHTML html={article.body} />
               </ArticleDescription>
             </DescriptionWrapper>
           </Row>
@@ -112,6 +112,6 @@ const ArticleDescription = styled(BodyMain)`
     }
   }
   img {
-    width: 100%;
+    max-width: 100%;
   }
 `;

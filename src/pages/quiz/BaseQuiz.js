@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import styled from "styled-components";
 import { quizAxios } from "../../api/api_quiz";
+import TitleComponent from "../../components/title/TitleComponent";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
-import useAxiosAuth_old from "../../hooks/useAxiosAuth_old";
 import quizQuestions from "./api/quizQuestions";
 import Quiz from "./components/Quiz";
 import Result from "./components/Result";
@@ -24,7 +25,7 @@ const BaseQuiz = () => {
 
   const location = useLocation();
 
-  let api = useAxiosAuth_old();
+  let api = useAxiosAuth();
 
   const getData = async (url) => {
     let data = {};
@@ -62,7 +63,6 @@ const BaseQuiz = () => {
   }, []);
 
   const handleAnswerSelected = (event) => {
-    console.log("rrrrrrrrrrrrrrrr");
     console.log(userAnswer);
     const currentChoose = parseInt(event.currentTarget.value);
     setUserAnswer(userAnswer + currentChoose);
@@ -86,38 +86,49 @@ const BaseQuiz = () => {
       console.log(quiz.testquestions[counter + 1].answers.answers);
       setAnswerOptions(quiz.testquestions[counter + 1].answers.answers);
     }
+  };
 
-    // this.setState({
-    //   counter: counter,
-    //   questionId: questionId,
-    //   question: quizQuestions[counter].question,
-    //   answerOptions: quizQuestions[counter].answers,
-    //   answer: "",
-    // });
+  const send_and_get_userResult = async (res) => {
+    const url = "/psychology" + location.pathname + "result/";
+    try {
+      let response = await api.post(url, {
+        result: res,
+      });
+      console.log(response.data);
+      setResult(response.data.result);
+    } catch (err) {
+      console.log(err.message);
+      setResult(err.message);
+    }
   };
 
   const setResults = () => {
     let res;
     setUserAnswer((state) => {
-      console.log(state); // "React is awesome!"
+      console.log(state);
       res = state;
       return state;
     });
     console.log(res);
 
-    setResult("finish");
+    send_and_get_userResult(res);
   };
 
   const renderQuiz = () => {
     return (
-      <Quiz
-        answer={answer}
-        answerOptions={answerOptions}
-        questionId={questionId}
-        question={question}
-        questionTotal={quiz.testquestions.length}
-        onAnswerSelected={handleAnswerSelected}
-      />
+      <QuizContainer>
+        <TitleWrapper>
+          <TitleComponent title={quiz.title} align="right" />
+        </TitleWrapper>
+        <Quiz
+          answer={answer}
+          answerOptions={answerOptions}
+          questionId={questionId}
+          question={question}
+          questionTotal={quiz.testquestions.length}
+          onAnswerSelected={handleAnswerSelected}
+        />
+      </QuizContainer>
     );
   };
 
@@ -127,9 +138,7 @@ const BaseQuiz = () => {
 
   return (
     <div className="App">
-      <div className="App-header">
-        <h2>React Quiz</h2>
-      </div>
+      <div className="App-header"></div>
       {loading && <p>در حال بارگزاری ...</p>}
 
       {!loading && error && <p className="errMsg">{error}</p>}
@@ -140,3 +149,11 @@ const BaseQuiz = () => {
 };
 
 export default BaseQuiz;
+
+const QuizContainer = styled.div`
+  padding: 1rem 4rem;
+`;
+
+const TitleWrapper = styled.div`
+  margin-bottom: 3rem;
+`;
