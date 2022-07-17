@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { AppContext } from "../Context";
+import useAxiosSimple from "../../../hooks/useAxiosSimple";
 
 export default function FirstStep() {
   let { handleNext } = useContext(AppContext);
@@ -12,6 +13,21 @@ export default function FirstStep() {
   const [gender, setGender] = useState("");
   const [ageError, setAgeError] = useState("");
   const [genderError, setGenderError] = useState("");
+  let api = useAxiosSimple();
+
+  const getData = async (url, data) => {
+    try {
+      let response = await api.post(url, data);
+      let res = response.data;
+      console.log(res);
+    } catch (err) {
+      console.log(err.message);
+
+      // setError(err.message);
+    } finally {
+      // setLoading(false);
+    }
+  };
 
   const isError = () => {
     let ageVAl = "";
@@ -40,6 +56,10 @@ export default function FirstStep() {
 
   const sendInfo = () => {
     console.log(gender);
+    getData("/disease/symptoms/requestsymptom/", {
+      gender: gender,
+      age: age,
+    });
     handleNext();
   };
 
