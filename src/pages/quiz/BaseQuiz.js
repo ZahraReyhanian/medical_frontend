@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { quizAxios } from "../../api/api_quiz";
 import TitleComponent from "../../components/title/TitleComponent";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
-import quizQuestions from "./api/quizQuestions";
 import Quiz from "./components/Quiz";
 import Result from "./components/Result";
 import "./styles.css";
