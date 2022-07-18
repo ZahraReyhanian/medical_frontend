@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import FirstStep from "./components/FirstStep";
 import { AppContext } from "./Context";
 import SymptomStep from "./components/SymptomStep";
+import QuestionStep from "./components/QuestionStep";
 
 const steps = ["سن و جنسیت", "علامت", "پرسش ها", "تشخیص"];
 
@@ -21,7 +22,7 @@ const HeaderStepper = () => {
       case 1:
         return <SymptomStep />;
       case 2:
-        return "What services do you want?";
+        return <QuestionStep />;
       case 3:
         return "Confirm your info";
       default:

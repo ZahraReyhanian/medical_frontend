@@ -8,6 +8,14 @@ import { AppContext } from "../Context";
 const SymptomStep = () => {
   let { handleNext, symptoms, loading, handleBack } = useContext(AppContext);
   const [activeNext, setActiveNext] = useState(0);
+  const [symptomId, setSymptomId] = useState();
+
+  const sendInfo = () => {
+    handleNext({
+      symptomId: symptomId,
+    });
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -19,16 +27,19 @@ const SymptomStep = () => {
               native: true,
             }}
             label="علامت"
-            name="symptom"
-            // error={!!genderError}
-            // helperText={genderError}
+            name="symptomId"
             required
             onChange={(e) => {
+              setSymptomId(e.target.value);
               setActiveNext(1);
             }}
           >
             {symptoms.map((symptom) => {
-              return <option value={symptom.id}>{symptom.name} </option>;
+              return (
+                <option key={symptom.id} value={symptom.id}>
+                  {symptom.name}{" "}
+                </option>
+              );
             })}
           </TextField>
         </Grid>
@@ -45,7 +56,7 @@ const SymptomStep = () => {
           sx={{ mt: 3, ml: 1 }}
           disabled={activeNext == 0}
           color="primary"
-          onClick={activeNext ? handleNext : () => null}
+          onClick={activeNext ? sendInfo : () => null}
         >
           بعدی
         </Button>

@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   let [activeStep, setActiveStep] = useState(0);
   let [skipped, setSkipped] = useState(new Set());
   let [symptoms, setSymptoms] = useState([]);
+  let [symptom, setSymptom] = useState({});
   let [loading, setLoading] = useState(false);
 
   let isStepSkipped = (step) => {
@@ -30,12 +31,30 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getSymptomQuestions = async (url) => {
+    console.log(url);
+    setLoading(true);
+    try {
+      let response = await api.get(url);
+      console.log(response.data);
+      setSymptom(response.data);
+    } catch (err) {
+      console.log(err.message);
+
+      // setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   let handleNext = (data) => {
     switch (activeStep) {
       case 0:
         getSymptoms("/disease/symptoms/requestsymptom/", data);
-      // case 1:
-      //   return "Enter personal info...";
+        break;
+      case 1:
+        getSymptomQuestions(`/disease/symptoms/${data.symptomId}/`);
+        break;
       // case 2:
       //   return "What services do you want?";
       // case 3:
@@ -72,6 +91,7 @@ export const AppProvider = ({ children }) => {
     handleNext: handleNext,
     symptoms: symptoms,
     loading: loading,
+    symptom: symptom,
   };
 
   return (
