@@ -2,8 +2,13 @@ import React, { useContext, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { AppContext } from "../Context";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import Button from "@mui/material/Button";
 
 export default function FirstStep() {
   let { handleNext } = useContext(AppContext);
@@ -52,7 +57,7 @@ export default function FirstStep() {
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
@@ -71,26 +76,23 @@ export default function FirstStep() {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            select
-            SelectProps={{
-              native: true,
-            }}
-            label="Gender"
-            name="gender"
+          <FormLabel id="demo-row-radio-buttons-group-label">جنسیت</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
             error={!!genderError}
             helperText={genderError}
-            required
+            value={gender}
             onChange={(e) => {
               setGender(e.target.value);
               isError();
             }}
+            required
           >
-            <option value=""> </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </TextField>
+            <FormControlLabel value="female" control={<Radio />} label="زن" />
+            <FormControlLabel value="male" control={<Radio />} label="مرد" />
+          </RadioGroup>
         </Grid>
       </Grid>
 

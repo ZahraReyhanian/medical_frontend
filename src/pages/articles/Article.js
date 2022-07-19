@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../../components/styles/GlobalStyles";
 import TitleComponent from "../../components/title/TitleComponent";
-import InnerHTML from 'dangerously-set-html-content'
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import InnerHTML from "dangerously-set-html-content";
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BodyMain } from "../../components/styles/TextStyles";
@@ -14,6 +19,8 @@ const Article = () => {
   const location = useLocation();
 
   const [article, pageCount, error, loading, axiosFetch] = useAxios();
+
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const getData = (url) => {
     axiosFetch({
@@ -40,9 +47,19 @@ const Article = () => {
           <Row>
             <TitleComponent align="right" title={article.title} />
             <ArticleDetail>
-              <ArticleDate>ارسال شده در {article.updated_at}</ArticleDate>
-              <DotWrapper>.</DotWrapper>
-              <ArticleAuthor>{article.user}</ArticleAuthor>
+              <DetailWrapper>
+                <ArticleDate>ارسال شده در {article.updated_at}</ArticleDate>
+                <DotWrapper>.</DotWrapper>
+                <ArticleAuthor>{article.user}</ArticleAuthor>
+              </DetailWrapper>
+              <CheckBoxWrapper>
+                <Checkbox
+                  {...label}
+                  style={{ direction: "ltr" }}
+                  icon={<BookmarkBorderIcon />}
+                  checkedIcon={<BookmarkIcon />}
+                />
+              </CheckBoxWrapper>
             </ArticleDetail>
             <ImageWrapper>
               <ArticleImage
@@ -51,7 +68,7 @@ const Article = () => {
             </ImageWrapper>
             <DescriptionWrapper>
               <ArticleDescription>
-              <InnerHTML html={article.body} />
+                <InnerHTML html={article.body} />
               </ArticleDescription>
             </DescriptionWrapper>
           </Row>
@@ -74,6 +91,9 @@ const ArticleContainer = styled.div`
 const ArticleDetail = styled.div`
   font-weight: 100;
   padding-right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const ArticleDate = styled.span``;
@@ -91,6 +111,8 @@ const ImageWrapper = styled.div`
 
 const ArticleImage = styled.img`
   max-width: 40rem;
+  min-width: 25rem;
+  border-radius: 12px;
 
   @media (max-width: 768px) {
     max-width: 18rem;
@@ -113,5 +135,16 @@ const ArticleDescription = styled(BodyMain)`
   }
   img {
     max-width: 100%;
+  }
+`;
+
+const DetailWrapper = styled.div``;
+
+const CheckBoxWrapper = styled.div`
+  text-align: left;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
   }
 `;

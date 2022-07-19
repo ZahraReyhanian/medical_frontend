@@ -5,9 +5,9 @@ const item1 = {
 };
 
 const item2 = {
-  title: "روانشناسی",
+  title: "آزمون های روانشناسی",
   icon: "/images/icons/head-side-thinking.svg",
-  link: "/start-test",
+  link: "/tests",
 };
 
 const authItem = {

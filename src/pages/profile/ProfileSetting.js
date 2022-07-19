@@ -96,37 +96,6 @@ const ProfileSetting = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-5" controlId="formBasicAge">
-              <Form.Label>سن</Form.Label>
-              <Form.Control
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                type="number"
-                placeholder="سن"
-              />
-            </Form.Group>
-
-            <FormLabel component="legend">جنسیت</FormLabel>
-            <RadioGroup
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              row
-              aria-label="gender"
-              name="row-radio-buttons-group"
-            >
-              <FormControlLabel
-                value="female"
-                checked={gender == "female"}
-                control={<Radio />}
-                label="زن"
-              />
-              <FormControlLabel
-                checked={gender == "male"}
-                value="male"
-                control={<Radio />}
-                label="مرد"
-              />
-            </RadioGroup>
             <ButtonWrapper>
               <SettingButton onClick={handleProfile}>ثبت</SettingButton>
             </ButtonWrapper>

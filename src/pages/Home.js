@@ -40,8 +40,8 @@ function Home() {
   return (
     <HomeWrapper>
       <HeroSection />
-      <MedicalSection />
-      <TestSection />
+      <MedicalSection id="medical" />
+      <TestSection id="tests" />
       <ArticleSection />
     </HomeWrapper>
   );

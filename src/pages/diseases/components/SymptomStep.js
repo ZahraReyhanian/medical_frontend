@@ -9,8 +9,13 @@ const SymptomStep = () => {
   let { handleNext, symptoms, loading, handleBack } = useContext(AppContext);
   const [activeNext, setActiveNext] = useState(0);
   const [symptomId, setSymptomId] = useState();
+  const [symptomError, setSymptomError] = useState("");
 
   const sendInfo = () => {
+    if (!symptomId) {
+      setSymptomError("لطفا علامت خود را وارد کنید");
+      return 0;
+    }
     handleNext({
       symptomId: symptomId,
     });
@@ -28,8 +33,10 @@ const SymptomStep = () => {
             }}
             label="علامت"
             name="symptomId"
+            rror={!!symptomError}
+            helperText={symptomError}
             required
-            onChange={(e) => {
+            onClick={(e) => {
               setSymptomId(e.target.value);
               setActiveNext(1);
             }}

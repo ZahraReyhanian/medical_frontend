@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   let [symptoms, setSymptoms] = useState([]);
   let [symptom, setSymptom] = useState({});
   let [loading, setLoading] = useState(false);
+  let [results, setResults] = useState();
 
   let isStepSkipped = (step) => {
     return skipped.has(step);
@@ -47,6 +48,21 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getResults = async (url, data) => {
+    setLoading(true);
+    try {
+      let response = await api.post(url, data);
+      setResults(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err.message);
+
+      // setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   let handleNext = (data) => {
     switch (activeStep) {
       case 0:
@@ -55,8 +71,9 @@ export const AppProvider = ({ children }) => {
       case 1:
         getSymptomQuestions(`/disease/symptoms/${data.symptomId}/`);
         break;
-      // case 2:
-      //   return "What services do you want?";
+      case 2:
+        getResults("/disease/symptoms/getresult/", data);
+        break;
       // case 3:
       //   return "Confirm your info";
       // default:
@@ -92,6 +109,7 @@ export const AppProvider = ({ children }) => {
     symptoms: symptoms,
     loading: loading,
     symptom: symptom,
+    results: results,
   };
 
   return (

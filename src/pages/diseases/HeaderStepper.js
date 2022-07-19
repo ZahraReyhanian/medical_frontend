@@ -9,6 +9,8 @@ import FirstStep from "./components/FirstStep";
 import { AppContext } from "./Context";
 import SymptomStep from "./components/SymptomStep";
 import QuestionStep from "./components/QuestionStep";
+import styled from "styled-components";
+import ResultStep from "./components/ResultStep";
 
 const steps = ["سن و جنسیت", "علامت", "پرسش ها", "تشخیص"];
 
@@ -24,7 +26,7 @@ const HeaderStepper = () => {
       case 2:
         return <QuestionStep />;
       case 3:
-        return "Confirm your info";
+        return <ResultStep />;
       default:
         return "Unknown step";
     }
@@ -40,27 +42,37 @@ const HeaderStepper = () => {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
+            <StepTopWrapper key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
+            </StepTopWrapper>
           );
         })}
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
+          <Typography sx={{ mt: 2, mb: 1 }}>انجام شد</Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
             <Button onClick={handleReset}>بازنشانی</Button>
           </Box>
         </React.Fragment>
       ) : (
-        <React.Fragment>{getStepContent(activeStep)}</React.Fragment>
+        <React.Fragment>
+          <StepWrapper>{getStepContent(activeStep)}</StepWrapper>
+        </React.Fragment>
       )}
     </Box>
   );
 };
 
 export default HeaderStepper;
+
+const StepWrapper = styled.div`
+  padding: 2rem 0;
+`;
+
+const StepTopWrapper = styled(Step)`
+  .css-vnkopk-MuiStepLabel-iconContainer {
+    padding-left: 8px;
+  }
+`;

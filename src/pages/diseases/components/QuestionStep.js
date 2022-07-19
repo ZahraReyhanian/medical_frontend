@@ -15,20 +15,20 @@ import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 const QuestionStep = () => {
   let { handleNext, loading, handleBack, symptom } = useContext(AppContext);
   const [activeNext, setActiveNext] = useState(0);
-  const [optionIds, setOptionIds] = useState([]);
+  const [optionIds, setOptionIds] = useState({});
 
-  const changeOptionIds = (id) => {
+  const changeOptionIds = (id, value) => {
     const selectedCheckboxes = optionIds;
 
     // Find index
-    const findIdx = selectedCheckboxes.indexOf(id);
+    // const findIdx = selectedCheckboxes.indexOf(id);
 
     // Index > -1 means that the item exists and that the checkbox is checked
     // and in that case we want to remove it from the array and uncheck it
-    if (findIdx > -1) {
-      selectedCheckboxes.splice(findIdx, 1);
+    if (selectedCheckboxes.id) {
+      delete selectedCheckboxes.id;
     } else {
-      selectedCheckboxes.push(id);
+      selectedCheckboxes[id] = value;
     }
 
     setOptionIds(selectedCheckboxes);
@@ -38,6 +38,15 @@ const QuestionStep = () => {
     } else {
       setActiveNext(0);
     }
+  };
+
+  const sendInfo = () => {
+    const data = {
+      options: optionIds,
+      symptom_id: symptom.id,
+    };
+    console.log(data);
+    handleNext(data);
   };
 
   return (
@@ -58,7 +67,9 @@ const QuestionStep = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              onChange={() => changeOptionIds(option.id)}
+                              onChange={() =>
+                                changeOptionIds(option.id, option.value)
+                              }
                               name="option_ids"
                             />
                           }
@@ -83,7 +94,7 @@ const QuestionStep = () => {
           sx={{ mt: 3, ml: 1 }}
           disabled={activeNext == 0}
           color="primary"
-          onClick={activeNext ? handleNext : () => null}
+          onClick={activeNext ? sendInfo : () => null}
         >
           بعدی
         </Button>
