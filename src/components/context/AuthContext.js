@@ -53,8 +53,11 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       toast.success("خوش آمدید");
       history.push("/");
+    } else if (response.status === 401) {
+      toast.error("کاربری با این مشخصات یافت نشد");
     } else {
-      alert("Something went wrong!");
+      toast.warn("Something went wrong!");
+      console.log(response);
     }
   };
 

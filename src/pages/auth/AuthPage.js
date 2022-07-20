@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import AuthContext from "../../components/context/AuthContext";
-// import { loginApi, registerApi, resetEmailApi } from "../../api/api_auth";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Button2 from "react-bootstrap/Button";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -9,17 +8,23 @@ import LoginIcon from "./images/user.svg";
 import uiImg from "./images/login.png";
 import "./Login.css";
 import styled from "styled-components";
+import useAxiosSimple from "../../hooks/useAxiosSimple";
 
 const LOGIN_TAB_VALUE = 1;
 const REG_TAB_VALUE = 2;
 const RESET_TAB_VALUE = 3;
 
+const isText = RegExp(/^[A-Z ]+$/i);
+const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+
 const AuthPage = () => {
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
 
   //register state
-  const [fullNameRegister, setFullNameRegister] = useState();
+  const [usernameRegister, setUsernameRegister] = useState();
   const [emailRegister, setEmailRegister] = useState();
+  const [firstNameRegister, setFirstNameRegister] = useState();
+  const [lastNameRegister, setLastNameRegister] = useState();
   const [passwordRegister, setPasswordRegister] = useState();
   const [confPasswordRegister, setConfPasswordRegister] = useState();
 
@@ -36,10 +41,13 @@ const AuthPage = () => {
   };
 
   const validateRegister = (user) => {
-    if (!user.email) return "Enter email";
-    if (!user.name) return "Enter name";
-    if (!user.password) return "Enter password";
-    if (user.password != user.confirmPassword) return "Confirm password";
+    if (!user.email) return "ایمیل را وارد کنید";
+    if (!isEmail.test(user.email)) return "ایمیل وارد شده صحیح نمی باشد";
+    if (!user.username) return "نام کاربری را وارد کنید";
+    if (!user.password) return "رمز عبور را وارد کنید";
+    if (user.password.length < 8) return "طول رمز عبور حداقل 8 باید باشد";
+    if (user.password != user.re_password)
+      return "رمز عبور و تائید آن باید مطابق هم باشند";
   };
 
   const handleResetPassword = () => {
@@ -57,27 +65,38 @@ const AuthPage = () => {
     // });
   };
 
+  let api = useAxiosSimple();
+
+  const register = async (url, data) => {
+    try {
+      let response = await api.post(url, data);
+      console.log(response.data);
+
+      toast.success(
+        "ثبت نام با موفقیت انجام شد. با استفاده از قسمت ورود وارد سایت شوید"
+      );
+
+      setTimeout(() => window.location.reload(), 2000);
+    } catch (err) {
+      console.log(err.message);
+
+      // setError(err.message);
+    } finally {
+    }
+  };
+
   const handleRegister = () => {
-    // const user = {
-    //   name: fullNameRegister,
-    //   email: emailRegister,
-    //   password: passwordRegister,
-    //   confirmPassword: confPasswordRegister,
-    // };
-    // const error = validateRegister(user);
-    // if (error) return toast.warn(error);
-    // // user.confPasswordRegister = undefined;
-    // registerApi(user, (isOk, data) => {
-    //   if (!isOk) return toast.error(data);
-    //   const delayInMilliseconds = 1000; //1 second
-    //   setTimeout(function () {
-    //     toast.success("Successful !");
-    //     localStorage.setItem("x-auth-token", data.data.token);
-    //     localStorage.setItem("email", data.data.user.email);
-    //     localStorage.setItem("name", data.data.user.name);
-    //     window.location.reload();
-    //   }, delayInMilliseconds);
-    // });
+    const user = {
+      username: usernameRegister,
+      email: emailRegister,
+      password: passwordRegister,
+      re_password: confPasswordRegister,
+      first_name: firstNameRegister,
+      last_name: lastNameRegister,
+    };
+    const error = validateRegister(user);
+    if (error) return toast.warn(error);
+    register("/auth/users/", user);
   };
 
   let { loginUser } = useContext(AuthContext);
@@ -134,16 +153,36 @@ const AuthPage = () => {
                     value={emailRegister}
                     onChange={(e) => setEmailRegister(e.target.value)}
                     type="email"
-                    placeholder="Enter email"
+                    placeholder="ایمیل"
+                    required
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicFullName">
                   <Form.Control
-                    value={fullNameRegister}
-                    onChange={(e) => setFullNameRegister(e.target.value)}
+                    value={usernameRegister}
+                    onChange={(e) => setUsernameRegister(e.target.value)}
                     type="text"
-                    placeholder="Enter full name"
+                    placeholder="شناسه کاربری"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicFullName">
+                  <Form.Control
+                    value={firstNameRegister}
+                    onChange={(e) => setFirstNameRegister(e.target.value)}
+                    type="text"
+                    placeholder="نام"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicFullName">
+                  <Form.Control
+                    value={lastNameRegister}
+                    onChange={(e) => setLastNameRegister(e.target.value)}
+                    type="text"
+                    placeholder="نام خانوادگی"
                   />
                 </Form.Group>
 
@@ -152,7 +191,8 @@ const AuthPage = () => {
                     value={passwordRegister}
                     onChange={(e) => setPasswordRegister(e.target.value)}
                     type="password"
-                    placeholder="Password"
+                    placeholder="رمز عبور"
+                    required
                   />
                 </Form.Group>
 
@@ -164,21 +204,22 @@ const AuthPage = () => {
                     value={confPasswordRegister}
                     onChange={(e) => setConfPasswordRegister(e.target.value)}
                     type="password"
-                    placeholder="Password"
+                    placeholder="تائید رمز عبور"
+                    required
                   />
                 </Form.Group>
 
                 <Button2 variant="primary w-100" onClick={handleRegister}>
-                  Register
+                  ثبت نام
                 </Button2>
 
                 <div className="mt-3">
                   <a href="#" onClick={handleChangeTabReset}>
-                    <small className="reset">Password Reset</small>
+                    <small className="reset">بازنشانی رمز عبور</small>
                   </a>{" "}
                   ||
                   <a href="#" onClick={handleChangeTab}>
-                    <small className="reset ml-2"> LOGIN</small>
+                    <small className="reset ml-2"> ورود</small>
                   </a>
                 </div>
               </Form>
