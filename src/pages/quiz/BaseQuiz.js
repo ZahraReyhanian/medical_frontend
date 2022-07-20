@@ -19,8 +19,6 @@ const BaseQuiz = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-
   const location = useLocation();
 
   let api = useAxiosAuth();

@@ -30,10 +30,10 @@ const MedicalSection = () => {
           </MedicalRight>
           <MedicalLeft md={7} sm={12}>
             <MedicalImagesWrapper>
-              <MedicalImagesLeft md={6} sm={12}>
+              <MedicalImagesLeft md={6} sm={6}>
                 <ImageContainerLeft src="/images/services/doctor.png" />
               </MedicalImagesLeft>
-              <MedicalImagesRight md={6} sm={12}>
+              <MedicalImagesRight md={6} sm={6}>
                 <ImageContainerRight src="/images/services/health1.jpg" />
                 <ImageContainerRight src="/images/services/health2.jpg" />
               </MedicalImagesRight>
@@ -73,6 +73,7 @@ const ServiceButtonWrapper = styled.div`
   margin-top: 100px;
   button {
     width: 60%;
+    margin-bottom: 4rem;
   }
 `;
 
@@ -97,8 +98,6 @@ const MedicalImagesRight = styled(Col)`
   @media (max-width: 786px) {
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    padding-top: 2rem;
   }
 `;
 
@@ -115,5 +114,7 @@ const ImageContainerRight = styled.img`
   margin-bottom: 1rem;
   @media (max-width: 786px) {
     padding: 1rem;
+    width: 100%;
+    border-radius: 2rem;
   }
 `;
