@@ -37,7 +37,7 @@ const AllQuiz = () => {
     <Container>
       <Row>
         <TitleWrapper>
-          <TitleComponent title="تست های روانشناسی" align="right" />
+          <TitleComponent title="آزمون های روانشناسی" align="right" />
         </TitleWrapper>
       </Row>
       <AllQuizRow>
