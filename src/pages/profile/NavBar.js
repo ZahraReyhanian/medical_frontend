@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
-// import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../components/context/AuthContext";
@@ -97,26 +96,6 @@ const NavBar = ({ image }) => {
                 ذخیره شده ها
               </NavLink>
             </NavItem>
-            {/* <NavItem>
-            <NavLink to="/profile_exercise" exact activeClassName="active">
-              My Exercise
-            </NavLink>
-          </NavItem> */}
-            <NavItem>
-              <NavLink to="/" exact activeClassName="active">
-                بازگشت به خانه
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to="/logout"
-                exact
-                activeClassName="active"
-                onClick={logoutUser}
-              >
-                خروج
-              </NavLink>
-            </NavItem>
           </NavItems>
 
           <Menu
@@ -140,7 +119,6 @@ const NavBar = ({ image }) => {
 export default NavBar;
 
 const Navbar = styled.div`
-  height: 100vh;
   font-size: 1.2rem;
 `;
 const Profile = styled.div`
@@ -149,15 +127,20 @@ const Profile = styled.div`
   margin-top: 1rem;
   img {
     width: 70%;
-    max-width: 150px;
-    max-height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 100%;
     border: 5px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
 
+    @media screen and (max-width: 768px) {
+      width: 110px;
+      height: 110px;
+    }
+
     @media screen and (max-width: 576px) {
-      max-width: 90px;
-      max-height: 90px;
+      width: 90px;
+      height: 90px;
     }
   }
 `;
@@ -165,17 +148,26 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+  }
 `;
 const NavItems = styled.ul`
   width: 100%;
   padding: 0;
   margin: 5rem 0 0 0;
+  @media screen and (max-width: 768px) {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;
 const NavItem = styled.li`
   list-style: none;
   text-align: center;
 
   a {
+    border-radius: 5px;
     text-decoration: none;
     font-size: inherit;
     color: inherit;
@@ -207,5 +199,6 @@ const NavItem = styled.li`
   }
   .active {
     background-color: #037fff;
+    color: #fff;
   }
 `;

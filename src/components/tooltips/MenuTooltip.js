@@ -16,6 +16,7 @@ export default function MenuTooltip(props) {
 
 const Wrapper = styled.div`
   padding: 20px 40px;
+  z-index: 100;
 
   position: absolute;
   width: 260px;
@@ -30,7 +31,6 @@ const Wrapper = styled.div`
 
   border-radius: 20px;
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
-  z-index: 1;
   display: grid;
   gap: 10px;
   grid-template-columns: 150px;

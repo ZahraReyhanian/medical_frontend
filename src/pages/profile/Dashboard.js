@@ -45,7 +45,7 @@ const Dashboard = () => {
         {!loading && !error && user && (
           <>
             <Row>
-              <DashboardColUserName lg={6} md={7} sm={6}>
+              <DashboardColUserName md={12} sm={12}>
                 <UserNameTop>
                   <H2>
                     سلام،{" "}
