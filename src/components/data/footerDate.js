@@ -5,8 +5,8 @@ export const footerData = [
     link: "/medical",
   },
   {
-    title: "روانشناسی",
+    title: "آزمون های روانشناسی",
     icon: "/images/icons/head-side-thinking.svg",
-    link: "/psychology",
+    link: "/tests",
   },
 ];
