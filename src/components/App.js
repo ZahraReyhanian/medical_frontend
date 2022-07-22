@@ -8,6 +8,7 @@ import PrivateRoute from "../hooks/PrivateRoute";
 
 import Home from "../pages/Home";
 import AuthPage from "../pages/auth/AuthPage";
+import Reset from "../pages/auth/Reset";
 import NotFound from "../pages/404";
 import Layout from "./layout/layout";
 import BaseQuiz from "../pages/quiz/BaseQuiz";
@@ -25,8 +26,6 @@ const App = () => {
         <AuthProvider>
           <Layout>
             <Switch>
-              {/* <AuthRoute path={"/reset/:token"} component={Reset} /> */}
-
               <PrivateRoute component={ProfilePanel} path="/profile" />
               <PrivateRoute component={ProfilePanel} path="/setting" />
               <PrivateRoute component={ProfilePanel} path="/saved" />
@@ -38,7 +37,8 @@ const App = () => {
               <Route component={AllQuiz} path="/tests" />
 
               <Route component={Diagnosis} path="/diagnosis" />
-              {/* todo */}
+
+              <Route path={"/reset/:uid/:token"} component={Reset} />
               <Route component={Article} path={"/articles/:id"} />
               <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />

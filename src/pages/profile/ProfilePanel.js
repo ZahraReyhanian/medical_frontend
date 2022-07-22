@@ -8,38 +8,69 @@ import Setting from "./Setting";
 import SavedArticles from "./SavedArticles";
 import { Col, Container, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import useAxiosAuth from "../../hooks/useAxiosAuth";
 const ProfilePanel = () => {
   const [navToggle, setNavToggle] = useState(false);
-  const [image, setImage] = useState("/images/person.png");
+  const [user, setUser] = useState({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const navClick = () => {
-    setNavToggle(!navToggle);
+  let api = useAxiosAuth();
+
+  const getData = async (url) => {
+    let data = {};
+    try {
+      let response = await api.get(url);
+      data = response.data;
+      console.log(data);
+      setUser(data);
+    } catch (err) {
+      console.log(err.message);
+
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const url = "/auth/users/me/";
+
+    getData(url);
+  }, []);
 
   return (
     <PanelContainer>
-      <Row>
-        <Sidebar md={3} sm={12} className={` ${navToggle ? "nav-toggle" : ""}`}>
-          <NavBar image="/images/avatar/photo.png" />
-        </Sidebar>
-        <MainContent md={9} sm={12}>
-          <MainContentWrapper>
-            <Switch>
-              <Route path="/profile">
-                <Dashboard />
-              </Route>
-              <Route path="/setting">
-                <Setting />
-              </Route>
-              <Route path="/saved">
-                <SavedArticles />
-              </Route>
-            </Switch>
-          </MainContentWrapper>
-        </MainContent>
-      </Row>
+      {loading && <p>در حال بارگزاری ...</p>}
+
+      {!loading && error && <p className="errMsg">{error}</p>}
+
+      {!loading && !error && user && (
+        <Row>
+          <Sidebar
+            md={3}
+            sm={12}
+            className={` ${navToggle ? "nav-toggle" : ""}`}
+          >
+            <NavBar image={user.profile.avatar} username={user.username} />
+          </Sidebar>
+          <MainContent md={9} sm={12}>
+            <MainContentWrapper>
+              <Switch>
+                <Route path="/profile">
+                  <Dashboard user={user} />
+                </Route>
+                <Route path="/setting">
+                  <Setting user={user} />
+                </Route>
+                <Route path="/saved">
+                  <SavedArticles />
+                </Route>
+              </Switch>
+            </MainContentWrapper>
+          </MainContent>
+        </Row>
+      )}
     </PanelContainer>
   );
 };

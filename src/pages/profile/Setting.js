@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ProfileSetting from "./ProfileSetting";
+import UsernameSetting from "./UsernameSetting";
 
-const Setting = () => {
+const Setting = ({ user }) => {
   return (
     <SettingWrapper>
-      <ProfileSetting />
+      <ProfileSetting user={user} />
+      <UsernameSetting />
     </SettingWrapper>
   );
 };

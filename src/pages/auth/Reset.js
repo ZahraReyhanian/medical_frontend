@@ -4,7 +4,7 @@ import LoginIcon from "./images/user.svg";
 import Button2 from "react-bootstrap/Button";
 import uiImg from "./images/login.svg";
 import { toast } from "react-toastify";
-import { resetApi } from "../../api/api_auth";
+// import { resetApi } from "../../api/api_auth";
 import { useLocation, useParams } from "react-router-dom";
 import queryString from "query-string";
 
@@ -39,29 +39,27 @@ const Reset = () => {
   };
 
   const handleRegister = () => {
-    const user = {
-      email: emailRegister,
-      password: passwordRegister,
-      confirmPassword: confPasswordRegister,
-      token: authToken,
-    };
-    const error = validateRegister(user);
-    if (error) return toast.warn(error);
-
-    console.log(user);
-    resetApi(authToken, user, (isOk, data) => {
-      const delayInMilliseconds = 1000; //1 second
-
-      setTimeout(function () {
-        if (!isOk) return toast.error(data);
-        toast.success("Successful!");
-        console.log(data);
-        localStorage.setItem("x-auth-token", data.data.token);
-        localStorage.setItem("email", data.data.user.email);
-        localStorage.setItem("name", data.data.user.name);
-        window.location.reload();
-      }, delayInMilliseconds);
-    });
+    // const user = {
+    //   email: emailRegister,
+    //   password: passwordRegister,
+    //   confirmPassword: confPasswordRegister,
+    //   token: authToken,
+    // };
+    // const error = validateRegister(user);
+    // if (error) return toast.warn(error);
+    // console.log(user);
+    // resetApi(authToken, user, (isOk, data) => {
+    //   const delayInMilliseconds = 1000; //1 second
+    //   setTimeout(function () {
+    //     if (!isOk) return toast.error(data);
+    //     toast.success("Successful!");
+    //     console.log(data);
+    //     localStorage.setItem("x-auth-token", data.data.token);
+    //     localStorage.setItem("email", data.data.user.email);
+    //     localStorage.setItem("name", data.data.user.name);
+    //     window.location.reload();
+    //   }, delayInMilliseconds);
+    // });
   };
 
   return (

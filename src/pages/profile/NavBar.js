@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
@@ -7,58 +7,63 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../components/context/AuthContext";
+import useAxiosAuth from "../../hooks/useAxiosAuth";
 
-const NavBar = ({ image }) => {
+const NavBar = ({ image, username }) => {
   const [imageFile, setImageFile] = useState();
   const [imagePath, setImagePath] = useState();
   const [anchorMenu, setAnchorMenu] = useState();
+  const [avatar, setAvatar] = useState("/images/avatar/photo.png");
   const inputRef = useRef();
+
+  const getImage = () => {
+    if (imagePath) return imagePath;
+    return avatar;
+  };
+
+  useEffect(() => {
+    if (image) setAvatar(image);
+  }, []);
+
+  let api = useAxiosAuth();
 
   const handleToggleMenu = (e) => {
     if (anchorMenu) setAnchorMenu(null);
     else setAnchorMenu(e.currentTarget);
   };
 
-  const getImage = () => {
-    if (image) return image;
-    if (
-      localStorage.getItem("image") &&
-      localStorage.getItem("image") !== "undefined"
-    )
-      return localStorage.getItem("image");
-    return "/images/person.png";
+  const uploadUserPhoto = async (url, data) => {
+    try {
+      let response = await api.post(url, data);
+
+      console.log(response.data);
+      toast.success("پروفایل با موفقیت بروزرسانی شد");
+      setAvatar(data.avatar);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+    }
   };
 
   const handleAvatarChange = (e) => {
-    const addr = "http://localhost:8000//";
-    // if (e.target.files && e.target.files.length > 0) {
-    //   setImageFile(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      setImageFile(e.target.files[0]);
 
-    //   const reader = new FileReader();
-    //   reader.onload = (e) => {
-    //     setImagePath(e.target.result);
-    //   };
-    //   reader.readAsDataURL(e.target.files[0]);
-    //   const formData = new FormData();
-    //   formData.append("image", e.target.files[0]);
-    //   uploadUserPhoto(formData, (isOK, data) => {
-    //     console.log(data);
-    //     if (!isOK) return toast.error(data);
-    //     const delayInMilliseconds = 1000; //1 second
-
-    //     setTimeout(function () {
-    //       toast.success("Successful !");
-    //     }, delayInMilliseconds);
-    //   });
-    // }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePath(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      const formData = new FormData();
+      formData.append("avatar", e.target.files[0]);
+      uploadUserPhoto("/api/userprofile/", formData);
+    }
   };
-
-  let { logoutUser } = useContext(AuthContext);
 
   if (!image) return "loading data....";
   else
     return (
-      <Navbar>
+      <NavbarWrapper>
         <Nav>
           <Profile>
             <Grid
@@ -67,9 +72,9 @@ const NavBar = ({ image }) => {
               onClick={handleToggleMenu}
               style={{ cursor: "pointer", justifyContent: "center" }}
             >
-              <img src={image} alt={"profile"} />
+              <img src={getImage()} alt={"profile"} />
               <Grid item container direction={"column"}>
-                <Typography>{localStorage.getItem("name")}</Typography>
+                <Typography>{username}</Typography>
               </Grid>
               <input
                 ref={inputRef}
@@ -112,13 +117,13 @@ const NavBar = ({ image }) => {
             </MenuItem>
           </Menu>
         </Nav>
-      </Navbar>
+      </NavbarWrapper>
     );
 };
 
 export default NavBar;
 
-const Navbar = styled.div`
+const NavbarWrapper = styled.div`
   font-size: 1.2rem;
 `;
 const Profile = styled.div`
