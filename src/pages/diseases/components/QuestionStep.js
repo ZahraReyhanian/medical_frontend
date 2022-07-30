@@ -109,7 +109,7 @@ const QuestionWrapper = styled.div`
   padding: 1rem 0;
   legend,
   span {
-    font-family: Shabnam, serif !important;
+    font-family: Vazir, serif !important;
   }
   legend {
     font-weight: bold;

@@ -9,6 +9,7 @@ import uiImg from "./images/login.png";
 import "./Login.css";
 import styled from "styled-components";
 import useAxiosSimple from "../../hooks/useAxiosSimple";
+import Login from "./components/Login";
 
 const LOGIN_TAB_VALUE = 1;
 const REG_TAB_VALUE = 2;
@@ -79,6 +80,7 @@ const AuthPage = () => {
       setTimeout(() => window.location.reload(), 2000);
     } catch (err) {
       console.log(err.message);
+      console.log(err.response.data);
 
       // setError(err.message);
     } finally {
@@ -106,43 +108,10 @@ const AuthPage = () => {
       <Container className={"mt-5"}>
         <Row>
           {tab === LOGIN_TAB_VALUE && (
-            <Col lg={6} md={6} sm={12} className="text-center p-3">
-              <img className="icon-img" src={LoginIcon} alt="userIcon" />
-              <Form onSubmit={loginUser}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    name="username"
-                    type="text"
-                    placeholder="شناسه کاربری"
-                  ></Form.Control>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="رمز عبور"
-                  />
-                </Form.Group>
-
-                <Button2 variant="primary w-100" type="submit">
-                  ورود
-                </Button2>
-
-                <div className="mt-3">
-                  <a href="#" onClick={handleChangeTabReset}>
-                    <small className="reset">رمز خود را فراموش کردم</small>
-                  </a>{" "}
-                  ||
-                  <a href="#" onClick={handleChangeTab}>
-                    <small className="reset ml-2">
-                      {" "}
-                      ثبت نام نکردی؟ بیا اینجا
-                    </small>
-                  </a>
-                </div>
-              </Form>
-            </Col>
+            <Login
+              handleChangeTab={handleChangeTab}
+              handleChangeTabReset={handleChangeTabReset}
+            />
           )}
           {tab === REG_TAB_VALUE && (
             <Col lg={6} md={6} sm={12} className="text-center p-3">
@@ -270,8 +239,17 @@ const AuthContainer = styled.section`
   padding: 4rem 3rem;
 
   button,
+  input,
+  label {
+    font-family: Vazir, serif !important;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  button,
   input {
-    border-radius: 20px;
     height: 3rem;
     padding: 0 1rem;
   }

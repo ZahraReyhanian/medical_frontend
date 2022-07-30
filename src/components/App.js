@@ -8,7 +8,6 @@ import PrivateRoute from "../hooks/PrivateRoute";
 
 import Home from "../pages/Home";
 import AuthPage from "../pages/auth/AuthPage";
-import Reset from "../pages/auth/Reset";
 import NotFound from "../pages/404";
 import Layout from "./layout/layout";
 import BaseQuiz from "../pages/quiz/BaseQuiz";
@@ -18,6 +17,7 @@ import AllQuiz from "../pages/quiz/AllQuiz";
 import AllArticle from "../pages/articles/AllArticle";
 import Article from "../pages/articles/Article";
 import Diagnosis from "../pages/diseases/Diagnosis";
+import SetPassword from "../pages/auth/components/SetPassword";
 
 const App = () => {
   return (
@@ -38,7 +38,7 @@ const App = () => {
 
               <Route component={Diagnosis} path="/diagnosis" />
 
-              <Route path={"/reset/:uid/:token"} component={Reset} />
+              <Route path={"/reset/:uid/:token"} component={SetPassword} />
               <Route component={Article} path={"/articles/:id"} />
               <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />

@@ -59,7 +59,7 @@ export default ResultStep;
 const ListWrapper = styled(List)`
   span {
     text-align: right;
-    font-family: Shabnam, serif !important;
+    font-family: Vazir, serif !important;
   }
 `;
 

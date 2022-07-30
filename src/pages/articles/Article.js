@@ -182,10 +182,10 @@ const DescriptionWrapper = styled.div`
 
 const ArticleDescription = styled(BodyMain)`
   line-height: 32px;
-  font-family: Shabnam, serif !important;
+  font-family: Vazir, serif !important;
   p,
   span {
-    font-family: Shabnam, serif !important;
+    font-family: Vazir, serif !important;
     @media (max-width: 768px) {
       font-size: 14px !important;
     }

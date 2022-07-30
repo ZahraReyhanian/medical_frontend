@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import LoginIcon from "./images/user.svg";
+import LoginIcon from "../images/user.svg";
 import Button2 from "react-bootstrap/Button";
-import uiImg from "./images/login.svg";
+import uiImg from "../images/login.png";
 import { toast } from "react-toastify";
 // import { resetApi } from "../../api/api_auth";
 import { useLocation, useParams } from "react-router-dom";
 import queryString from "query-string";
 
-const Reset = () => {
+const SetPassword = () => {
   const location = useLocation();
   const [emailRegister, setEmailRegister] = useState();
   const [passwordRegister, setPasswordRegister] = useState();
@@ -113,4 +113,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default SetPassword;
