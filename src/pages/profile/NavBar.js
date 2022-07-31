@@ -60,65 +60,63 @@ const NavBar = ({ image, username }) => {
     }
   };
 
-  if (!image) return "loading data....";
-  else
-    return (
-      <NavbarWrapper>
-        <Nav>
-          <Profile>
-            <Grid
-              container
-              direction={"row-reverse"}
-              onClick={handleToggleMenu}
-              style={{ cursor: "pointer", justifyContent: "center" }}
-            >
-              <img src={getImage()} alt={"profile"} />
-              <Grid item container direction={"column"}>
-                <Typography>{username}</Typography>
-              </Grid>
-              <input
-                ref={inputRef}
-                type={"file"}
-                style={{ display: "none" }}
-                onChange={handleAvatarChange}
-              />
-            </Grid>
-            {/* <img src="/images/profile.jpg" alt="" /> */}
-          </Profile>
-          <NavItems>
-            <NavItem>
-              <NavLink to="/profile" exact activeClassName="active">
-                پروفایل
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/setting" exact activeClassName="active">
-                تنظیمات
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/saved" exact activeClassName="active">
-                ذخیره شده ها
-              </NavLink>
-            </NavItem>
-          </NavItems>
-
-          <Menu
-            open={anchorMenu}
-            onClose={() => setAnchorMenu(null)}
-            anchorEl={anchorMenu}
+  return (
+    <NavbarWrapper>
+      <Nav>
+        <Profile>
+          <Grid
+            container
+            direction={"row-reverse"}
+            onClick={handleToggleMenu}
+            style={{ cursor: "pointer", justifyContent: "center" }}
           >
-            <MenuItem
-              onClick={() => {
-                inputRef.current.click();
-              }}
-            >
-              ویرایش عکس پروفایل
-            </MenuItem>
-          </Menu>
-        </Nav>
-      </NavbarWrapper>
-    );
+            <img src={getImage()} alt={"profile"} />
+            <Grid item container direction={"column"}>
+              <Typography>{username}</Typography>
+            </Grid>
+            <input
+              ref={inputRef}
+              type={"file"}
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
+          </Grid>
+          {/* <img src="/images/profile.jpg" alt="" /> */}
+        </Profile>
+        <NavItems>
+          <NavItem>
+            <NavLink to="/profile" exact activeClassName="active">
+              پروفایل
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/setting" exact activeClassName="active">
+              تنظیمات
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/saved" exact activeClassName="active">
+              ذخیره شده ها
+            </NavLink>
+          </NavItem>
+        </NavItems>
+
+        <Menu
+          open={anchorMenu}
+          onClose={() => setAnchorMenu(null)}
+          anchorEl={anchorMenu}
+        >
+          <MenuItem
+            onClick={() => {
+              inputRef.current.click();
+            }}
+          >
+            ویرایش عکس پروفایل
+          </MenuItem>
+        </Menu>
+      </Nav>
+    </NavbarWrapper>
+  );
 };
 
 export default NavBar;

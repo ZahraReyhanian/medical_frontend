@@ -18,6 +18,7 @@ import AllArticle from "../pages/articles/AllArticle";
 import Diagnosis from "../pages/diseases/Diagnosis";
 import SetPassword from "../pages/auth/components/SetPassword";
 import ArticleComment from "../pages/articles/ArticleComment";
+import Checkout from "../pages/quiz/Checkout";
 
 const App = () => {
   return (
@@ -32,7 +33,8 @@ const App = () => {
 
               <AuthRoute path={"/login"} component={AuthPage} />
 
-              <Route component={BaseQuiz} path="/tests/:id/questions" />
+              <PrivateRoute component={BaseQuiz} path="/tests/:id/questions" />
+              <PrivateRoute component={Checkout} path="/tests/:id/checkout" />
               <Route component={StartQuiz} path="/tests/:id" />
               <Route component={AllQuiz} path="/tests" />
 

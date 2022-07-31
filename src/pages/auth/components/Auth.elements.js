@@ -30,6 +30,10 @@ export const AuthContainer = styled(Container)`
   }
 `;
 
+export const AuthRow = styled(Row)`
+  align-items: center;
+`;
+
 export const AuthCol = styled(Col)`
   padding: 1rem 2rem;
 `;
@@ -60,7 +64,6 @@ export const Footer = styled.div`
 `;
 
 export const UiImg = styled.img`
-  height: 100%;
   width: 100% !important;
   @media screen and (max-width: 768px) {
     padding-top: 2rem;

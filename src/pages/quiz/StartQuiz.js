@@ -48,7 +48,7 @@ const StartQuiz = () => {
           <Row>
             <QuizColRight md={7} sm={12}>
               <TitleWrapper>
-                <a href="/">آزمون های روانشناسی</a>
+                <Link to="/tests">آزمون های روانشناسی</Link>
                 <span> / </span>
                 <TitleComponent title={quiz.title} align={"right"} />
               </TitleWrapper>

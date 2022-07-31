@@ -52,7 +52,7 @@ const ProfilePanel = () => {
             sm={12}
             className={` ${navToggle ? "nav-toggle" : ""}`}
           >
-            <NavBar image={user.profile.avatar} username={user.username} />
+            <NavBar image={user.profile?.avatar} username={user.username} />
           </Sidebar>
           <MainContent md={9} sm={12}>
             <MainContentWrapper>

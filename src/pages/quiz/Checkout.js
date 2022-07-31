@@ -1,7 +1,7 @@
 import React from "react";
 
-const CommentBox = () => {
+const Checkout = () => {
   return <div></div>;
 };
 
-export default CommentBox;
+export default Checkout;
