@@ -15,9 +15,9 @@ import ProfilePanel from "../pages/profile/ProfilePanel";
 import StartQuiz from "../pages/quiz/StartQuiz";
 import AllQuiz from "../pages/quiz/AllQuiz";
 import AllArticle from "../pages/articles/AllArticle";
-import Article from "../pages/articles/Article";
 import Diagnosis from "../pages/diseases/Diagnosis";
 import SetPassword from "../pages/auth/components/SetPassword";
+import ArticleComment from "../pages/articles/ArticleComment";
 
 const App = () => {
   return (
@@ -39,7 +39,7 @@ const App = () => {
               <Route component={Diagnosis} path="/diagnosis" />
 
               <Route path={"/reset/:uid/:token"} component={SetPassword} />
-              <Route component={Article} path={"/articles/:id"} />
+              <Route component={ArticleComment} path={"/articles/:id"} />
               <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />
