@@ -1,8 +1,8 @@
 export const footerData = [
   {
-    title: "پزشکی",
+    title: "تشخیص بیماری ها",
     icon: "/images/icons/stethoscope.svg",
-    link: "/medical",
+    link: "/diagnosis",
   },
   {
     title: "آزمون های روانشناسی",

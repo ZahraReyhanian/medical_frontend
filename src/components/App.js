@@ -15,9 +15,11 @@ import ProfilePanel from "../pages/profile/ProfilePanel";
 import StartQuiz from "../pages/quiz/StartQuiz";
 import AllQuiz from "../pages/quiz/AllQuiz";
 import AllArticle from "../pages/articles/AllArticle";
-import Article from "../pages/articles/Article";
 import Diagnosis from "../pages/diseases/Diagnosis";
 import SetPassword from "../pages/auth/components/SetPassword";
+import Checkout from "../pages/quiz/Checkout";
+import PaymentError from "../pages/quiz/PaymentError";
+import Article from "../pages/articles/Article";
 
 const App = () => {
   return (
@@ -32,9 +34,11 @@ const App = () => {
 
               <AuthRoute path={"/login"} component={AuthPage} />
 
-              <Route component={BaseQuiz} path="/tests/:id/questions" />
+              <PrivateRoute component={BaseQuiz} path="/tests/:id/questions" />
+              <PrivateRoute component={Checkout} path="/tests/:id/checkout" />
               <Route component={StartQuiz} path="/tests/:id" />
               <Route component={AllQuiz} path="/tests" />
+              <PrivateRoute component={PaymentError} path="/payment/error" />
 
               <Route component={Diagnosis} path="/diagnosis" />
 

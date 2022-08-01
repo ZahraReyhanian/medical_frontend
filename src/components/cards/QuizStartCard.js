@@ -1,17 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/GlobalStyles";
 
-const QuizStartCard = ({ type, price }) => {
+const QuizStartCard = ({ type, price, access, link }) => {
   return (
     <CardContainer>
       <BackCard>
         <CardWrapper>
           <QuizPriceWrapper>
-            <p>{type == "free" ? "رایگان" : `قیمت : ${price} تومان`}</p>
+            <AccessText>
+              {access && type == "cash" ? "به این آزمون دسترسی دارید" : ""}
+            </AccessText>
+            <PriceText>
+              {type == "free" ? "رایگان" : `قیمت : ${price} تومان`}
+            </PriceText>
           </QuizPriceWrapper>
           <QuizStartButtonWrapper>
-            <QuizStartButton>شروع</QuizStartButton>
+            <Link to={link}>
+              <QuizStartButton>شروع</QuizStartButton>
+            </Link>
           </QuizStartButtonWrapper>
         </CardWrapper>
       </BackCard>
@@ -51,13 +59,18 @@ const CardWrapper = styled.div`
   padding-top: 3rem;
 `;
 
-const QuizPriceWrapper = styled.div`
-  p {
-    text-align: center;
-    font-size: 38px;
-    font-weight: 600;
-    color: #207561;
-  }
+const QuizPriceWrapper = styled.div``;
+
+const PriceText = styled.p`
+  text-align: center;
+  font-size: 38px;
+  font-weight: 600;
+  color: #207561;
+`;
+
+const AccessText = styled.p`
+  text-align: center;
+  font-size: 20px;
 `;
 
 const QuizStartButtonWrapper = styled.div`

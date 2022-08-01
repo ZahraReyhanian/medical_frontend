@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
   let [loading, setLoading] = useState(true);
 
   const history = useHistory();
+  const location = useLocation();
 
   const validateLogin = (userInfo) => {
     if (!userInfo.username) return "نام کاربری را وارد کنید";
@@ -52,7 +53,8 @@ export const AuthProvider = ({ children }) => {
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
       toast.success("خوش آمدید");
-      history.push("/");
+
+      history.push(location.state == null ? "/" : location.state.from);
     } else if (response.status === 401) {
       toast.error("کاربری با این مشخصات یافت نشد");
     } else {

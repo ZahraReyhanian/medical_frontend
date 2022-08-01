@@ -1,7 +1,7 @@
 const item1 = {
-  title: "پزشکی",
+  title: "تشخیص بیماری ها",
   icon: "/images/icons/stethoscope.svg",
-  link: "/medical",
+  link: "/diagnosis",
 };
 
 const item2 = {

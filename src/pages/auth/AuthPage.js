@@ -11,6 +11,7 @@ import styled from "styled-components";
 import useAxiosSimple from "../../hooks/useAxiosSimple";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { AuthRow, UiImg } from "./components/Auth.elements";
 
 const LOGIN_TAB_VALUE = 1;
 const REG_TAB_VALUE = 2;
@@ -51,7 +52,7 @@ const AuthPage = () => {
   return (
     <AuthContainer>
       <Container className={"mt-5"}>
-        <Row>
+        <AuthRow>
           {tab === LOGIN_TAB_VALUE && (
             <Login
               handleChangeTab={handleChangeTab}
@@ -95,9 +96,9 @@ const AuthPage = () => {
             </Col>
           )}
           <Col lg={6} md={6} sm={12}>
-            <img className="ui_img" src={uiImg} alt="LOGIN" />
+            <UiImg src={uiImg} alt="LOGIN" />
           </Col>
-        </Row>
+        </AuthRow>
       </Container>
     </AuthContainer>
   );
