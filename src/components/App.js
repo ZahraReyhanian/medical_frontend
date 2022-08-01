@@ -17,8 +17,9 @@ import AllQuiz from "../pages/quiz/AllQuiz";
 import AllArticle from "../pages/articles/AllArticle";
 import Diagnosis from "../pages/diseases/Diagnosis";
 import SetPassword from "../pages/auth/components/SetPassword";
-import ArticleComment from "../pages/articles/ArticleComment";
 import Checkout from "../pages/quiz/Checkout";
+import PaymentError from "../pages/quiz/PaymentError";
+import Article from "../pages/articles/Article";
 
 const App = () => {
   return (
@@ -37,11 +38,12 @@ const App = () => {
               <PrivateRoute component={Checkout} path="/tests/:id/checkout" />
               <Route component={StartQuiz} path="/tests/:id" />
               <Route component={AllQuiz} path="/tests" />
+              <PrivateRoute component={PaymentError} path="/payment/error" />
 
               <Route component={Diagnosis} path="/diagnosis" />
 
               <Route path={"/reset/:uid/:token"} component={SetPassword} />
-              <Route component={ArticleComment} path={"/articles/:id"} />
+              <Route component={Article} path={"/articles/:id"} />
               <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />
               <Route component={NotFound} />

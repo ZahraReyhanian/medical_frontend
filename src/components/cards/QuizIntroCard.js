@@ -76,10 +76,14 @@ const ImageWrapper = styled(Col)`
 
 const DescriptionWrapper = styled(Col)`
   padding: 0 1rem;
+  @media (max-width: 768px) {
+    padding-top: 1rem;
+  }
 `;
 
 const Description = styled(MediumText)`
   font-size: 16px;
+  line-height: 2rem;
 `;
 
 const DetailWrapper = styled(Col)`

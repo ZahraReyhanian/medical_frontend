@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   Container,
@@ -12,7 +12,8 @@ import { BodyMain } from "../../components/styles/TextStyles";
 import SmallDetailCard from "../../components/cards/SmallDetailCard";
 import QuizStartCard from "../../components/cards/QuizStartCard";
 import { Link, useLocation } from "react-router-dom";
-import useAxios from "../../hooks/useAxios";
+import useAxiosAuth from "../../hooks/useAxiosAuth";
+import useAxiosSimple from "../../hooks/useAxiosSimple";
 import { quizAxios } from "../../api/api_quiz";
 import AuthContext from "../../components/context/AuthContext";
 import { Warning } from "@material-ui/icons";
@@ -21,14 +22,32 @@ const StartQuiz = () => {
   const location = useLocation();
   let { user } = useContext(AuthContext);
 
-  const [quiz, pageCount, error, loading, axiosFetch] = useAxios();
+  const [quiz, setQuiz] = useState({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const getData = (url) => {
-    axiosFetch({
-      axiosInstance: quizAxios,
-      method: "get",
-      url: url,
-    });
+  let auth_api = useAxiosAuth();
+  let simple_api = useAxiosSimple();
+
+  const getData = async (url) => {
+    let data = {};
+    try {
+      let api;
+      if (user) api = auth_api;
+      else api = simple_api;
+
+      let response = await api.get(url);
+      data = response.data;
+      console.log(data);
+
+      setQuiz(data);
+    } catch (err) {
+      console.log(err.message);
+
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -78,9 +97,16 @@ const StartQuiz = () => {
               </ImageContainer>
               <StartWrapper>
                 {user ? (
-                  <Link to={`${location.pathname}/questions`}>
-                    <QuizStartCard type={quiz.type} price={quiz.price} />
-                  </Link>
+                  <QuizStartCard
+                    type={quiz.type}
+                    price={quiz.price}
+                    access={quiz.access}
+                    link={
+                      quiz.access
+                        ? `${location.pathname}/questions`
+                        : `${location.pathname}/checkout`
+                    }
+                  />
                 ) : (
                   <WarningWrapper>
                     <Warning />
