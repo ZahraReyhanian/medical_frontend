@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Col, Container, Row } from "react-bootstrap";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { H2 } from "../../components/styles/TextStyles";
+import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { H2 } from "../../../components/styles/TextStyles";
 import Title from "./Title";
-import useAxiosAuth from "../../hooks/useAxiosAuth";
 
 const Dashboard = ({ user }) => {
   return (

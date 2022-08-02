@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
@@ -6,8 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import AuthContext from "../../components/context/AuthContext";
-import useAxiosAuth from "../../hooks/useAxiosAuth";
+import useAxiosAuth from "../../../hooks/useAxiosAuth";
 
 const NavBar = ({ image, username }) => {
   const [imageFile, setImageFile] = useState();
@@ -97,6 +96,11 @@ const NavBar = ({ image, username }) => {
           <NavItem>
             <NavLink to="/saved" exact activeClassName="active">
               ذخیره شده ها
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/paid" exact activeClassName="active">
+              آزمون های خریداری شده
             </NavLink>
           </NavItem>
         </NavItems>

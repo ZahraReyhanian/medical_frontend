@@ -14,7 +14,6 @@ import QuizStartCard from "../../components/cards/QuizStartCard";
 import { Link, useLocation } from "react-router-dom";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
 import useAxiosSimple from "../../hooks/useAxiosSimple";
-import { quizAxios } from "../../api/api_quiz";
 import AuthContext from "../../components/context/AuthContext";
 import { Warning } from "@material-ui/icons";
 

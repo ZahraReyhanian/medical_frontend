@@ -31,6 +31,7 @@ const App = () => {
               <PrivateRoute component={ProfilePanel} path="/profile" />
               <PrivateRoute component={ProfilePanel} path="/setting" />
               <PrivateRoute component={ProfilePanel} path="/saved" />
+              <PrivateRoute component={ProfilePanel} path="/paid" />
 
               <AuthRoute path={"/login"} component={AuthPage} />
 

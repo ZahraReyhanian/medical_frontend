@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { themes } from "../../components/styles/ColorStyles";
-import Dashboard from "./Dashboard";
-import NavBar from "./NavBar";
+import Dashboard from "./components/Dashboard";
+import NavBar from "./components/NavBar";
 import { Switch, Route } from "react-router-dom";
-import Setting from "./Setting";
-import SavedArticles from "./SavedArticles";
-import { Col, Container, Row } from "react-bootstrap";
+import Setting from "./components/Setting";
+import SavedArticles from "./components/SavedArticles";
+import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
+import PaidQuiz from "./components/PaidQuiz";
+
 const ProfilePanel = () => {
   const [navToggle, setNavToggle] = useState(false);
   const [user, setUser] = useState({});
@@ -65,6 +67,9 @@ const ProfilePanel = () => {
                 </Route>
                 <Route path="/saved">
                   <SavedArticles />
+                </Route>
+                <Route path="/paid">
+                  <PaidQuiz />
                 </Route>
               </Switch>
             </MainContentWrapper>

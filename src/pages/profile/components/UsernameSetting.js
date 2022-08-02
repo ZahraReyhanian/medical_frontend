@@ -1,94 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Form, FormLabel, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import Title from "./Title";
 import styled from "styled-components";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
-import useAxiosAuth from "../../hooks/useAxiosAuth";
+import useAxiosAuth from "../../../hooks/useAxiosAuth";
 
-const isEmail = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
-
-const ProfileSetting = ({ user }) => {
-  const [email, setEmail] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [error, setError] = useState();
+const UsernameSetting = () => {
+  const [password, setPassword] = useState();
+  const [username, setUsername] = useState();
 
   let api = useAxiosAuth();
 
-  useEffect(() => {
-    setEmail(user.email);
-    setFirstName(user.first_name);
-    setLastName(user.last_name);
-  }, []);
-
   const validation = (user_values) => {
-    if (!user_values.email) return "ایمیل را وارد کنید";
-    if (!isEmail.test(user_values.email)) return "ایمیل وارد شده صحیح نمی باشد";
+    if (!user_values.current_password) return "رمز عبور را وارد کنید";
+    if (!user_values.new_username) return "نام کاربری را وارد کنید";
   };
 
   const submit_setting = async (url, user_values) => {
     try {
-      let response = await api.patch(url, user_values);
+      let response = await api.post(url, user_values);
       const data = response.data;
       console.log(data);
       toast.success("با موفقیت ثبت شد");
     } catch (err) {
       console.log(err.message);
-
-      setError(err.message);
     } finally {
     }
   };
 
   const handleProfile = () => {
     const user_values = {
-      email: email,
-      first_name: firstName,
-      last_name: lastName,
+      new_username: username,
+      current_password: password,
     };
     const error = validation(user_values);
     if (error) return toast.warn(error);
-    submit_setting("/auth/users/me/", user_values);
+    submit_setting("/auth/users/set_username/", user_values);
   };
 
   return (
     <PersonalWrapper>
       <Row>
         <Col lg={12} md={12} sm={12}>
-          <Title title="تنظیمات" span="" />
+          <Title title="تغییر نام کاربری" span="" />
         </Col>
       </Row>
+
       <AccountRow>
         <Col lg={12} md={12} sm={12}>
           <Form>
             <Form.Group className="mb-5" controlId="formBasicEmail">
-              <Form.Label>ایمیل</Form.Label>
+              <Form.Label>رمز عبور فعلی</Form.Label>
               <Form.Control
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="ایمیل را وارد کنید"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="رمز عبور فعلی"
               />
             </Form.Group>
-
             <Form.Group className="mb-5" controlId="formBasicName">
-              <Form.Label>نام</Form.Label>
+              <Form.Label>نام کاربری</Form.Label>
               <Form.Control
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                placeholder="نام"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-5" controlId="formBasicName">
-              <Form.Label>نام خانوادگی</Form.Label>
-              <Form.Control
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-                placeholder="نام خانوادگی"
+                placeholder="نام کاربری را وراد کنید"
               />
             </Form.Group>
 
@@ -102,7 +79,7 @@ const ProfileSetting = ({ user }) => {
   );
 };
 
-export default ProfileSetting;
+export default UsernameSetting;
 
 const AccountRow = styled(Row)`
   margin-top: 2rem;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ArticleCard from "../../components/cards/ArticleCard";
+import ArticleCard from "../../../components/cards/ArticleCard";
 import { Col, Row } from "react-bootstrap";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import useAxiosAuth from "../../hooks/useAxiosAuth";
+import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import useAxiosAuth from "../../../hooks/useAxiosAuth";
 import Title from "./Title";
 
 const SavedArticles = () => {
@@ -45,7 +45,11 @@ const SavedArticles = () => {
 
         {!loading && error && <p className="errMsg">{error}</p>}
 
-        {!loading && !error && articles?.length && (
+        {!loading && !error && articles?.length == 0 && (
+          <p>مقاله ای ذخیره نکردید.</p>
+        )}
+
+        {!loading && !error && articles?.length > 0 && (
           <>
             {articles.map((article, i) => {
               return (

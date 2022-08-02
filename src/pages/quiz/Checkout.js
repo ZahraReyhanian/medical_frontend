@@ -4,7 +4,7 @@ import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BoldText, H2, MediumText } from "../../components/styles/TextStyles";
 import { Button } from "../../components/styles/GlobalStyles";
-import { Redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
 
 const Checkout = () => {
