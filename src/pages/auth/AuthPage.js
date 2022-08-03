@@ -1,21 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
-import AuthContext from "../../components/context/AuthContext";
-import { Col, Container, Form, Row } from "react-bootstrap";
-import Button2 from "react-bootstrap/Button";
+import React, { useState } from "react";
+import { Col, Container } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import LoginIcon from "./images/user.svg";
 import uiImg from "./images/login.png";
 import "./Login.css";
 import styled from "styled-components";
-import useAxiosSimple from "../../hooks/useAxiosSimple";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { AuthRow, UiImg } from "./components/Auth.elements";
+import { AuthContainer, AuthRow, UiImg } from "./components/Auth.elements";
+import ResetPassword from "./components/ResetPassword";
 
-const LOGIN_TAB_VALUE = 1;
-const REG_TAB_VALUE = 2;
-const RESET_TAB_VALUE = 3;
+export const LOGIN_TAB_VALUE = 1;
+export const REG_TAB_VALUE = 2;
+export const RESET_TAB_VALUE = 3;
 
 const isText = RegExp(/^[A-Z ]+$/i);
 
@@ -66,35 +62,7 @@ const AuthPage = () => {
             />
           )}
 
-          {tab === RESET_TAB_VALUE && (
-            <Col lg={6} md={6} sm={12} className="text-center p-3">
-              <img className="icon-img" src={LoginIcon} alt="userIcon" />
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicemail">
-                  <Form.Control
-                    value={emailReset}
-                    onChange={(e) => setEmailReset(e.target.value)}
-                    type="text"
-                    placeholder="Enter email"
-                  />
-                </Form.Group>
-
-                <Button2 variant="primary w-100" onClick={handleResetPassword}>
-                  Reset Password
-                </Button2>
-
-                <div className="mt-3">
-                  <a href="#" onClick={() => setTab(REG_TAB_VALUE)}>
-                    <small className="reset">REGISTER</small>
-                  </a>{" "}
-                  ||
-                  <a href="#" onClick={() => setTab(LOGIN_TAB_VALUE)}>
-                    <small className="reset ml-2"> LOGIN</small>
-                  </a>
-                </div>
-              </Form>
-            </Col>
-          )}
+          {tab === RESET_TAB_VALUE && <ResetPassword setTab={setTab} />}
           <Col lg={6} md={6} sm={12}>
             <UiImg src={uiImg} alt="LOGIN" />
           </Col>
@@ -105,23 +73,3 @@ const AuthPage = () => {
 };
 
 export default AuthPage;
-
-const AuthContainer = styled.section`
-  padding: 4rem 3rem;
-
-  button,
-  input,
-  label {
-    font-family: Vazir, serif !important;
-  }
-
-  label {
-    font-size: 14px;
-  }
-
-  button,
-  input {
-    height: 3rem;
-    padding: 0 1rem;
-  }
-`;

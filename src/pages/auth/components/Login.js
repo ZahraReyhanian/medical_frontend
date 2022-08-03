@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import LoginIcon from "../images/user.svg";
-import styled from "styled-components";
 import {
   Footer,
   MyForm,
@@ -9,6 +8,7 @@ import {
   AuthBox,
   ButtonWrapper,
   AuthTextField,
+  IconImg,
 } from "./Auth.elements";
 import { Button } from "../../../components/styles/GlobalStyles";
 import AuthContext from "../../../components/context/AuthContext";
@@ -61,9 +61,3 @@ const Login = ({ handleChangeTab, handleChangeTabReset }) => {
 };
 
 export default Login;
-
-const IconImg = styled.img`
-  width: 70px;
-  height: 70px;
-  margin-bottom: 3rem;
-`;

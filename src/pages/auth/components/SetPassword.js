@@ -1,115 +1,128 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
-import LoginIcon from "../images/user.svg";
-import Button2 from "react-bootstrap/Button";
+import { Col, Container } from "react-bootstrap";
+import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import uiImg from "../images/login.png";
 import { toast } from "react-toastify";
-// import { resetApi } from "../../api/api_auth";
 import { useLocation, useParams } from "react-router-dom";
-import queryString from "query-string";
+import LoginIcon from "../images/user.svg";
+import {
+  AuthBox,
+  AuthCol,
+  AuthContainer,
+  AuthRow,
+  AuthTextField,
+  ButtonWrapper,
+  IconImg,
+  MyForm,
+  UiImg,
+} from "./Auth.elements";
+import useAxiosSimple from "../../../hooks/useAxiosSimple";
+import { Button } from "../../../components/styles/GlobalStyles";
 
 const SetPassword = () => {
   const location = useLocation();
-  const [emailRegister, setEmailRegister] = useState();
-  const [passwordRegister, setPasswordRegister] = useState();
-  const [confPasswordRegister, setConfPasswordRegister] = useState();
+  const [password, setPassword] = useState();
+  const [confPassword, setConfPassword] = useState();
+  const [passwordError, setPasswordError] = useState();
 
-  const [authToken, setAuthToken] = useState();
-
-  //   const { id } = useParams();
+  const { uid, token } = useParams();
 
   useEffect(() => {
-    const id = location.pathname.substring(7);
-    setAuthToken(id);
+    console.log(uid, token);
   }, [location]);
 
-  //   const verifyToken = () => {
+  const api = useAxiosSimple();
 
-  //     // const { token, id } = queryString.parse(location.search);
-  //   };
+  const resetPassword = async (url, data) => {
+    try {
+      let response = await api.post(url, data);
+      console.log(response.data);
 
-  //   useEffect(() => {
-  //     verifyToken();
-  //   }, []);
+      toast.success("رمز عبور شما با موفقیت تغییر یافت.");
+    } catch (err) {
+      const error_data = err.response.data;
 
-  const validateRegister = (user) => {
-    if (!user.email) return "ایمیل را وارد كنید";
-    if (!user.password) return "رمز عبور را وارد كنيد";
-    if (user.password !== user.confirmPassword) return "رمز عبور را تاييد كنيد";
+      console.log(error_data);
+
+      if (error_data.new_password) {
+        setPasswordError(error_data.new_password);
+      } else if (error_data.token) {
+        toast.error("توکن منقضی شده است");
+      }
+    } finally {
+    }
   };
 
-  const handleRegister = () => {
-    // const user = {
-    //   email: emailRegister,
-    //   password: passwordRegister,
-    //   confirmPassword: confPasswordRegister,
-    //   token: authToken,
-    // };
-    // const error = validateRegister(user);
-    // if (error) return toast.warn(error);
-    // console.log(user);
-    // resetApi(authToken, user, (isOk, data) => {
-    //   const delayInMilliseconds = 1000; //1 second
-    //   setTimeout(function () {
-    //     if (!isOk) return toast.error(data);
-    //     toast.success("Successful!");
-    //     console.log(data);
-    //     localStorage.setItem("x-auth-token", data.data.token);
-    //     localStorage.setItem("email", data.data.user.email);
-    //     localStorage.setItem("name", data.data.user.name);
-    //     window.location.reload();
-    //   }, delayInMilliseconds);
-    // });
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    if (password != confPassword) {
+      setPasswordError("رمز عبور و تائید آن باید مطابق هم باشند");
+      return;
+    }
+    const data = {
+      uid: uid,
+      token: token,
+      new_password: password,
+      re_new_password: confPassword,
+    };
+    console.log(data);
+    resetPassword("/auth/users/reset_password_confirm/", data);
   };
 
   return (
-    <div>
+    <AuthContainer>
       <Container className={"mt-5"}>
-        <Row>
-          <Col lg={6} md={6} sm={12} className="text-center mt-5 p-3">
-            <img className="icon-img" src={LoginIcon} alt="userIcon" />
-            <Form>
-              <Form.Group className="mb-3" controlId="formBasicUsername">
-                <Form.Control
-                  value={emailRegister}
-                  onChange={(e) => setEmailRegister(e.target.value)}
-                  type="email"
-                  placeholder="Enter email"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control
-                  value={passwordRegister}
-                  onChange={(e) => setPasswordRegister(e.target.value)}
+        <AuthRow>
+          <AuthCol lg={6} md={6} sm={12} className="text-center">
+            <IconImg src={LoginIcon} alt="userIcon" />
+            <MyForm>
+              <AuthBox>
+                <AuthTextField
+                  value={password}
+                  onChange={(e) => {
+                    setPasswordError("");
+                    setPassword(e.target.value);
+                  }}
                   type="password"
-                  placeholder="Password"
+                  fullWidth
+                  id="password"
+                  label="رمز عبور"
+                  variant="outlined"
+                  error={!!passwordError}
+                  helperText={passwordError}
                 />
-              </Form.Group>
+              </AuthBox>
 
-              <Form.Group
-                className="mb-3"
-                controlId="formBasicConfirmedPassword"
-              >
-                <Form.Control
-                  value={confPasswordRegister}
-                  onChange={(e) => setConfPasswordRegister(e.target.value)}
+              <AuthBox>
+                <AuthTextField
+                  value={confPassword}
+                  onChange={(e) => {
+                    setPasswordError("");
+                    setConfPassword(e.target.value);
+                  }}
                   type="password"
-                  placeholder="Password"
+                  fullWidth
+                  id="confirmedPassword"
+                  label="تائید رمز عبور"
+                  variant="outlined"
                 />
-              </Form.Group>
+              </AuthBox>
 
-              <Button2 variant="primary w-100" onClick={handleRegister}>
-                Reset Password
-              </Button2>
-            </Form>
-          </Col>
+              <AuthBox>
+                <ButtonWrapper>
+                  <Button white primary fullWidth onClick={handleResetPassword}>
+                    تائید
+                  </Button>
+                </ButtonWrapper>
+              </AuthBox>
+            </MyForm>
+          </AuthCol>
           <Col lg={6} md={6} sm={12}>
-            <img className="w-100" src={uiImg} alt="LOGIN" />
+            <UiImg src={uiImg} alt="LOGIN" />
           </Col>
-        </Row>
+        </AuthRow>
       </Container>
-    </div>
+    </AuthContainer>
   );
 };
 

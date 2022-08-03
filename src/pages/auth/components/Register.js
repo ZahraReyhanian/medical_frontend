@@ -8,6 +8,7 @@ import {
   AuthBox,
   ButtonWrapper,
   AuthTextField,
+  IconImg,
 } from "./Auth.elements";
 import { Button } from "../../../components/styles/GlobalStyles";
 import useAxiosSimple from "../../../hooks/useAxiosSimple";
@@ -222,9 +223,3 @@ const Register = ({ handleChangeTab, handleChangeTabReset }) => {
 };
 
 export default Register;
-
-const IconImg = styled.img`
-  width: 70px;
-  height: 70px;
-  margin-bottom: 3rem;
-`;

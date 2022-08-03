@@ -34,6 +34,7 @@ const App = () => {
               <PrivateRoute component={ProfilePanel} path="/paid" />
 
               <AuthRoute path={"/login"} component={AuthPage} />
+              <Route path={"/reset/:uid/:token"} component={SetPassword} />
 
               <PrivateRoute component={BaseQuiz} path="/tests/:id/questions" />
               <PrivateRoute component={Checkout} path="/tests/:id/checkout" />
@@ -43,7 +44,6 @@ const App = () => {
 
               <Route component={Diagnosis} path="/diagnosis" />
 
-              <Route path={"/reset/:uid/:token"} component={SetPassword} />
               <Route component={Article} path={"/articles/:id"} />
               <Route component={AllArticle} path="/articles" />
               <Route component={Home} path="/" exact />

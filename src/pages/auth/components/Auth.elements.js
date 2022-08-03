@@ -19,9 +19,17 @@ export const AuthPageWrapper = styled.div`
 `;
 
 export const AuthContainer = styled(Container)`
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 1rem;
   padding: 4rem 3rem;
+
+  button,
+  input,
+  label {
+    font-family: Vazir, serif !important;
+  }
+
+  label {
+    font-size: 14px;
+  }
 
   button,
   input {
@@ -73,4 +81,10 @@ export const UiImg = styled.img`
 export const ButtonWrapper = styled.div`
   margin-bottom: 2rem;
   margin-top: 1.5rem;
+`;
+
+export const IconImg = styled.img`
+  width: 70px;
+  height: 70px;
+  margin-bottom: 3rem;
 `;
