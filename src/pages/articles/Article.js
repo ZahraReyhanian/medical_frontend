@@ -78,7 +78,7 @@ const Article = () => {
 
   const changeSaved = (e) => {
     if (!user) {
-      history.replace("/login", { from: location });
+      history.replace({ pathname: "/login", state: { from: location } });
     } else {
       setSaved(e.target.checked);
       saveArticle("/articles/" + article.id + "/savearticle/");

@@ -8,14 +8,15 @@ import TitleComponent from "../../components/title/TitleComponent";
 
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BodyMain } from "../../components/styles/TextStyles";
+import { BodyMain, Caption2 } from "../../components/styles/TextStyles";
 import SmallDetailCard from "../../components/cards/SmallDetailCard";
 import QuizStartCard from "../../components/cards/QuizStartCard";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
 import useAxiosSimple from "../../hooks/useAxiosSimple";
 import AuthContext from "../../components/context/AuthContext";
 import { Warning } from "@material-ui/icons";
+import { themes } from "../../components/styles/ColorStyles";
 
 const StartQuiz = () => {
   const location = useLocation();
@@ -54,6 +55,12 @@ const StartQuiz = () => {
 
     getData(url);
   }, []);
+
+  const history = useHistory();
+
+  const redirectLogin = () => {
+    history.replace({ pathname: "/login", state: { from: location } });
+  };
 
   return (
     <QuizDetailContainer>
@@ -109,9 +116,9 @@ const StartQuiz = () => {
                 ) : (
                   <WarningWrapper>
                     <Warning />
-                    <Link to="/login">
+                    <Caption2 onClick={redirectLogin}>
                       <span>برای مشاهده تست وارد سایت شوید</span>
-                    </Link>
+                    </Caption2>
                   </WarningWrapper>
                 )}
               </StartWrapper>
@@ -195,6 +202,18 @@ const WarningWrapper = styled.div`
   padding: 2rem 3rem;
   margin-top: 3.2rem;
   background-color: #fff;
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+    transition: 300ms all linear;
+    cursor: pointer;
+
+    &:hover {
+      color: ${themes.light.primaryHover};
+    }
+  }
 
   svg {
     fill: #f2df3a;
