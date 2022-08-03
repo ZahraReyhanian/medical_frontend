@@ -53,7 +53,7 @@ export const BodyMain = styled.p`
 export const MediumText = styled.p`
   font-weight: normal;
   font-size: 18px;
-  line-height: 130%;
+  line-height: 3rem;
 `;
 export const Caption = styled.p`
   font-weight: 500;
@@ -76,6 +76,11 @@ export const SmallText2 = styled.p`
   font-size: 13px;
   line-height: 130%;
   text-transform: uppercase;
+`;
+export const BoldText = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 3rem;
 `;
 // export const H1 = styled.h1`
 //   font-weight: bold;

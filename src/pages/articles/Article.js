@@ -9,7 +9,7 @@ import InnerHTML from "dangerously-set-html-content";
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BodyMain } from "../../components/styles/TextStyles";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../components/context/AuthContext";
 import useAxiosAuth from "../../hooks/useAxiosAuth";
@@ -74,9 +74,15 @@ const Article = () => {
     getData(url);
   }, []);
 
+  const history = useHistory();
+
   const changeSaved = (e) => {
-    setSaved(e.target.checked);
-    saveArticle("/articles/" + article.id + "/savearticle/");
+    if (!user) {
+      history.replace({ pathname: "/login", state: { from: location } });
+    } else {
+      setSaved(e.target.checked);
+      saveArticle("/articles/" + article.id + "/savearticle/");
+    }
   };
 
   return (
@@ -95,20 +101,16 @@ const Article = () => {
                 <DotWrapper>.</DotWrapper>
                 <ArticleAuthor>{article.user}</ArticleAuthor>
               </DetailWrapper>
-              {user ? (
-                <CheckBoxWrapper>
-                  <Checkbox
-                    {...label}
-                    style={{ direction: "ltr" }}
-                    icon={<BookmarkBorderIcon />}
-                    checkedIcon={<BookmarkIcon />}
-                    onChange={changeSaved}
-                    checked={saved}
-                  />
-                </CheckBoxWrapper>
-              ) : (
-                ""
-              )}
+              <CheckBoxWrapper>
+                <Checkbox
+                  {...label}
+                  style={{ direction: "ltr" }}
+                  icon={<BookmarkBorderIcon />}
+                  checkedIcon={<BookmarkIcon />}
+                  onChange={changeSaved}
+                  checked={saved}
+                />
+              </CheckBoxWrapper>
             </ArticleDetail>
             <ImageWrapper>
               <ArticleImage
@@ -182,10 +184,10 @@ const DescriptionWrapper = styled.div`
 
 const ArticleDescription = styled(BodyMain)`
   line-height: 32px;
-  font-family: Shabnam, serif !important;
+  font-family: Vazir, serif !important;
   p,
   span {
-    font-family: Shabnam, serif !important;
+    font-family: Vazir, serif !important;
     @media (max-width: 768px) {
       font-size: 14px !important;
     }

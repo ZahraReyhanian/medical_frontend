@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   Container,
@@ -8,27 +8,46 @@ import TitleComponent from "../../components/title/TitleComponent";
 
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BodyMain } from "../../components/styles/TextStyles";
+import { BodyMain, Caption2 } from "../../components/styles/TextStyles";
 import SmallDetailCard from "../../components/cards/SmallDetailCard";
 import QuizStartCard from "../../components/cards/QuizStartCard";
-import { Link, useLocation } from "react-router-dom";
-import useAxios from "../../hooks/useAxios";
-import { quizAxios } from "../../api/api_quiz";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import useAxiosAuth from "../../hooks/useAxiosAuth";
+import useAxiosSimple from "../../hooks/useAxiosSimple";
 import AuthContext from "../../components/context/AuthContext";
 import { Warning } from "@material-ui/icons";
+import { themes } from "../../components/styles/ColorStyles";
 
 const StartQuiz = () => {
   const location = useLocation();
   let { user } = useContext(AuthContext);
 
-  const [quiz, pageCount, error, loading, axiosFetch] = useAxios();
+  const [quiz, setQuiz] = useState({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const getData = (url) => {
-    axiosFetch({
-      axiosInstance: quizAxios,
-      method: "get",
-      url: url,
-    });
+  let auth_api = useAxiosAuth();
+  let simple_api = useAxiosSimple();
+
+  const getData = async (url) => {
+    let data = {};
+    try {
+      let api;
+      if (user) api = auth_api;
+      else api = simple_api;
+
+      let response = await api.get(url);
+      data = response.data;
+      console.log(data);
+
+      setQuiz(data);
+    } catch (err) {
+      console.log(err.message);
+
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -36,6 +55,12 @@ const StartQuiz = () => {
 
     getData(url);
   }, []);
+
+  const history = useHistory();
+
+  const redirectLogin = () => {
+    history.replace({ pathname: "/login", state: { from: location } });
+  };
 
   return (
     <QuizDetailContainer>
@@ -48,7 +73,7 @@ const StartQuiz = () => {
           <Row>
             <QuizColRight md={7} sm={12}>
               <TitleWrapper>
-                <a href="/">آزمون های روانشناسی</a>
+                <Link to="/tests">آزمون های روانشناسی</Link>
                 <span> / </span>
                 <TitleComponent title={quiz.title} align={"right"} />
               </TitleWrapper>
@@ -78,15 +103,22 @@ const StartQuiz = () => {
               </ImageContainer>
               <StartWrapper>
                 {user ? (
-                  <Link to={`${location.pathname}/questions`}>
-                    <QuizStartCard type={quiz.type} price={quiz.price} />
-                  </Link>
+                  <QuizStartCard
+                    type={quiz.type}
+                    price={quiz.price}
+                    access={quiz.access}
+                    link={
+                      quiz.access
+                        ? `${location.pathname}/questions`
+                        : `${location.pathname}/checkout`
+                    }
+                  />
                 ) : (
                   <WarningWrapper>
                     <Warning />
-                    <Link to="/login">
+                    <Caption2 onClick={redirectLogin}>
                       <span>برای مشاهده تست وارد سایت شوید</span>
-                    </Link>
+                    </Caption2>
                   </WarningWrapper>
                 )}
               </StartWrapper>
@@ -145,10 +177,10 @@ const DescriptionWrapper = styled(Col)`
 const BodyDescription = styled(BodyMain)`
   text-align: justify;
   line-height: 32px;
-  font-family: Shabnam, serif !important;
+  font-family: Vazir, serif !important;
   p,
   span {
-    font-family: Shabnam, serif !important;
+    font-family: Vazir, serif !important;
     @media (max-width: 768px) {
       font-size: 14px !important;
     }
@@ -170,6 +202,18 @@ const WarningWrapper = styled.div`
   padding: 2rem 3rem;
   margin-top: 3.2rem;
   background-color: #fff;
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+    transition: 300ms all linear;
+    cursor: pointer;
+
+    &:hover {
+      color: ${themes.light.primaryHover};
+    }
+  }
 
   svg {
     fill: #f2df3a;

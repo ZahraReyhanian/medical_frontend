@@ -14,11 +14,12 @@ const TitleComponent = ({ title, subtitle, align }) => {
 export default TitleComponent;
 
 const TitleWrapper = styled.div`
-  text-align: ${props => props.align};
+  text-align: ${(props) => props.align};
 `;
 
 const Title = styled(H2)``;
 
 const Subtitle = styled(MediumText)`
   margin-top: 10px;
+  line-height: 2rem;
 `;
