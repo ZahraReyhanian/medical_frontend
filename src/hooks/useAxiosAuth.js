@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { useContext } from "react";
 import AuthContext from "../components/context/AuthContext";
 
-const baseURL = "http://127.0.0.1:8000";
+const baseURL = "http://86.106.142.102";
 
 const useAxiosAuth = () => {
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "http://86.106.142.102";
 
 export const allArticleAxios = axios.create({
   baseURL: BASE_URL,
