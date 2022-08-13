@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://86.106.142.102";
+const baseURL = "http://86.106.142.102/api";
 
 const useAxiosSimple = () => {
   const axiosInstance = axios.create({
