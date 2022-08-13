@@ -45,7 +45,7 @@ const ArticleSection = () => {
                       description={article.short_body}
                       image={
                         article.image
-                          ? "http://86.106.142.102/api" + article.image
+                          ? "http://86.106.142.102" + article.image
                           : "/images/card_img.jpg"
                       }
                       author={article.user}
