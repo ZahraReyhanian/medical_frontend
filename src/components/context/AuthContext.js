@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     const error = validateLogin(userInfo);
     if (error) return toast.warn(error);
 
-    let response = await fetch("http://86.106.142.102/api/api/token/", {
+    let response = await fetch("http://127.0.0.1:8000/api/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
