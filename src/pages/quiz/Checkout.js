@@ -114,6 +114,15 @@ const CheckoutWrapper = styled.div`
   @media (max-width: 1024px) {
     padding: 0 12rem;
   }
+  @media (max-width: 914px) {
+    padding: 0 10rem;
+  }
+  @media (max-width: 768px) {
+    padding: 0 6rem;
+  }
+  @media (max-width: 518px) {
+    padding: 0 2rem;
+  }
 `;
 const TitleWrapper = styled.div`
   margin-bottom: 1.5rem;
